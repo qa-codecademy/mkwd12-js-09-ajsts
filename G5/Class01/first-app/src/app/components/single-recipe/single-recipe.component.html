@@ -1,0 +1,5 @@
+<h3>Recipe for: {{ title }}</h3>
+<p>Details: {{ description }}</p>
+
+<!-- ngIf = will be shown if foodHasAlergens is TRUE =) -->
+<p *ngIf="foodHasAlergens" class="warning">WARNING! Food has alergens</p>

@@ -1,0 +1,31 @@
+<section>
+  <h3>Recipe list:</h3>
+  <ul>
+    <!-- <li>
+      <app-single-recipe
+        [description]="recipes[0].description"
+        [title]="recipes[0].name"
+        [foodHasAlergens]="recipes[0].hasAlergens"
+      />
+    </li>
+
+    <li>
+      <app-single-recipe
+        [title]="recipes[1].name"
+        [description]="recipes[1].description"
+        [foodHasAlergens]="recipes[1].hasAlergens"
+      />
+    </li> -->
+
+    <!-- BETTER DINAMYC WAY -->
+
+    <!-- using DIRECTIVE ngFor we interate through the list of recipes and for each recipe we display the component app-single-recipe -->
+    <li *ngFor="let recipe of recipes">
+      <app-single-recipe
+        [description]="recipe.description"
+        [title]="recipe.name"
+        [foodHasAlergens]="recipe.hasAlergens"
+      />
+    </li>
+  </ul>
+</section>
