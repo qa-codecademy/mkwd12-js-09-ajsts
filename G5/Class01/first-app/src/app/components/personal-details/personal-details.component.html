@@ -1,0 +1,40 @@
+<section>
+  <!-- STRING INTEPOLATION -->
+  <h3>Personal details:</h3>
+  <p>First name: {{ firstName }}</p>
+  <p>Last name: {{ lastName }}</p>
+  <p>Age: {{ age }}</p>
+  <p>Person is {{ age > 18 ? "Adult" : "Not adult" }}</p>
+
+  <hr />
+
+  <!-- PROPERTY BINDING -->
+  <input
+    type="text"
+    [placeholder]="placeholderValue"
+    [disabled]="isInputDisabled"
+  />
+
+  <!-- EVENT BINDING -->
+  <button (click)="onHandleClick()">Click me</button>
+
+  <hr />
+  <br />
+  <br />
+  <input
+    type="text"
+    placeholder="Address"
+    (keyup)="onHandleAddressChange($event)"
+    [value]="address"
+  />
+  <p>{{ address }}</p>
+
+  <!-- TWO WAY DATA BINDING -->
+  <hr />
+  <br />
+  <br />
+
+  <input type="text" placeholder="Movie name" [(ngModel)]="movieName" />
+  <p>{{ movieName }}</p>
+  <button (click)="changeMovieNameProgrammatically()">Change movie name</button>
+</section>
