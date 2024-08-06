@@ -1,0 +1,42 @@
+<header>
+  <h1>Starter Angular App</h1>
+</header>
+<main>
+  <h2>Hello, {{ title }}</h2>
+  <h2>Description: {{ description }}</h2>
+
+  <h4>{{ person.firstName }}</h4>
+  <h4>{{ person.lastName }}</h4>
+  <h4>{{ person.age }}</h4>
+  <h4>{{ person.country }}</h4>
+
+  <div>
+    <h2>Property binding</h2>
+    <h3
+      [style]="{ color: 'red' }"
+      [innerHTML]="title + ' This is an exention of the title'"
+    ></h3>
+
+    <img [src]="imgSrc" />
+
+    <button [disabled]="isBtnDisabled">I am not to be clicked</button>
+  </div>
+
+  <div>
+    <h2>Event binding</h2>
+    <button (click)="printPersonFullname('Risto', 'Blazheski')">
+      Print Details
+    </button>
+    <br />
+    <button (click)="changeProperties()">Change properties</button>
+    <br />
+    <h3>{{ course }}</h3>
+    <hr />
+    <button (click)="onChangeCourse()">Change course</button>
+    <hr />
+    <input type="text" (keyup)="onInputChange($event)" />
+    <p>Input value: {{ inputValue }}</p>
+  </div>
+
+  <app-parent />
+</main>
