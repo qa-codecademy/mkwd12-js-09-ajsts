@@ -14,5 +14,5 @@ This repository will contain every piece of material about the subject. It will 
 
 ## Team
 
-- Trainer: name mail GH: username
-- Assistant: name mail GH: username
+- Trainer: name mail GH: George Dimitrov - dimitrov.gjorge@protonmail.com
+- Assistant: name mail GH: Ivan Ivanov - ivanovv7@protonmail.com
