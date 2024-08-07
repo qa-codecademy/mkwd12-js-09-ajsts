@@ -1,0 +1,18 @@
+<section>
+  <h2>{{ title }}</h2>
+  <p>{{ childMessage }}</p>
+  <button (click)="increment()">Increment</button>
+  <button (click)="decrement()">Decrement</button>
+
+  <br />
+  <br />
+
+  <input type="text" (keyup)="handleChangeName($event)" />
+
+  <hr />
+  <app-child
+    [name]="name"
+    [counter]="count"
+    (message)="readMessageFromChild($event)"
+  />
+</section>

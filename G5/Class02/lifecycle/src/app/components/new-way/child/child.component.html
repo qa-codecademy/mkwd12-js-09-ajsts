@@ -1,0 +1,13 @@
+<section>
+  <div>
+    <p>Count is: {{ counter() }}</p>
+    <p>Name is: {{ name() }}</p>
+  </div>
+
+  <hr />
+  <br />
+  <div>
+    <input type="text" placeholder="Enter todo name" [(ngModel)]="todoName" />
+    <button (click)="createTodo()">Create Todo</button>
+  </div>
+</section>
