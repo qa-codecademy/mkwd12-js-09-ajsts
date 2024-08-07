@@ -1,6 +1,4 @@
-<h1>
-  Iteration
-</h1>
+<h1>Iteration</h1>
 
 <!-- <ul>
   <li *ngFor="let car of cars">{{ car }}</li>
@@ -8,6 +6,10 @@
 
 <ul>
   @for (car of cars; track car) {
-    <li>{{car}} {{$index}}</li>
+  <li>{{ car }} {{ $index }}</li>
   }
 </ul>
+
+<ng-template ngFor let-car [ngForOf]="cars" let-i="index">
+  <li>{{ car }}</li>
+</ng-template>
