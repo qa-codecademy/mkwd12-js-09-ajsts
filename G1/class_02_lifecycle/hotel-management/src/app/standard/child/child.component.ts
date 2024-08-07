@@ -21,7 +21,8 @@ import { GrandchildComponent } from '../grandchild/grandchild.component';
     <h2>Child Component</h2>
     <p>Count {{ counter }}</p>
     <button (click)="logSomething()">Log Something</button>
-    <app-grandchild [name]="name" />
+    <p>Age {{ age }}</p>
+    <app-grandchild [name]="name" (onAgeIncrease)="handleAgeIncrease()" />
   `,
 })
 export class ChildComponent
@@ -37,6 +38,12 @@ export class ChildComponent
 {
   @Input() counter: number = 0;
   @Input() name: string = '';
+
+  age: number = 1;
+
+  handleAgeIncrease() {
+    this.age += 1;
+  }
 
   logSomething() {
     console.log('Something from child component!');

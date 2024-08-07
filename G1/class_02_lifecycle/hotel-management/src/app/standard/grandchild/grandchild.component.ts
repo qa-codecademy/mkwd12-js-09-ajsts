@@ -5,10 +5,12 @@ import {
   AfterViewInit,
   Component,
   DoCheck,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 
@@ -17,7 +19,8 @@ import {
   standalone: true,
   imports: [],
   template: `<h3>Grandchild Component</h3>
-    <p>{{ name }}</p> `,
+    <p>{{ name }}</p>
+    <button (click)="increaseAge()">Add 1 year to age</button> `,
 })
 export class GrandchildComponent
   implements
@@ -31,9 +34,15 @@ export class GrandchildComponent
     OnDestroy
 {
   @Input() name: string = '';
+  @Output() onAgeIncrease: EventEmitter<void> = new EventEmitter<void>();
+
   // Once on class initialization
   constructor() {
     console.log('Grandchild constructor');
+  }
+
+  increaseAge() {
+    this.onAgeIncrease.emit();
   }
 
   // Once on component initialization

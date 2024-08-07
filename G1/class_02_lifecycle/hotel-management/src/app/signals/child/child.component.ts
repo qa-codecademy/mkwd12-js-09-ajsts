@@ -6,23 +6,34 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  signal,
   SimpleChanges,
+  untracked,
 } from '@angular/core';
+import { GrandchildComponent } from '../grandchild/grandchild.component';
 
 @Component({
   selector: 'app-child',
   standalone: true,
-  imports: [],
+  imports: [GrandchildComponent],
   template: `
     <h2>Child Component</h2>
 
-    <p>{{ counter() }}</p>
+    <p>Count: {{ counter() }}</p>
+    <p>Age: {{ age() }}</p>
+    <app-grandchild [name]="name()" (onAgeIncrease)="handleAgeIncrease()" />
   `,
 })
 export class ChildComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy
 {
   counter = input<number>(0);
+  name = input<string>('');
+  age = signal<number>(1);
+
+  handleAgeIncrease() {
+    this.age.update((prevAge) => prevAge + 1);
+  }
 
   constructor() {
     console.log('Child constructor');
@@ -32,17 +43,21 @@ export class ChildComponent
     });
     effect(() => {
       console.log('Child Component Effect counter', this.counter());
+
+      untracked(() => {
+        console.log('Child Component Effect name', this.name());
+      });
     });
 
     effect((onCleanup) => {
       const timer = setTimeout(() => {
-        console.log('1 second ago the component was destroyed');
-      }, 1000);
+        console.log('1 second ago the component was initialized');
+      }, 2000);
       onCleanup(() => {
         console.log('Child component cleanup');
         clearTimeout(timer);
       });
-    }, {});
+    });
   }
 
   ngOnInit(): void {

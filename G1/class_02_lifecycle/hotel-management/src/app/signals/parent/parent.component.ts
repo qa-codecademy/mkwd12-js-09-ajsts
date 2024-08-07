@@ -20,10 +20,9 @@ import { ChildComponent } from '../child/child.component';
     <button (click)="incrementCount()">Increment Counter</button>
     <button (click)="changeName()">Change Name</button>
     <button (click)="toggleChild()">Toggle Child</button>
-    <p>Name: {{ name() }}</p>
     <p>Name Length: {{ nameLength() }}</p>
     @if (showChild()) {
-    <app-child [counter]="counter()" />
+    <app-child [counter]="counter()" [name]="name()" />
     }
   `,
 })
