@@ -19,7 +19,14 @@ import { ChildComponent } from '../child/child.component';
   template: `
     <h1>Parent Component</h1>
     <button (click)="increment()">Increment</button>
-    <app-child [counter]="counter" />
+    <button (click)="changeName()">Change Name</button>
+    <button (click)="changeUntrackedValue()">Change Untracked Value</button>
+    <button (click)="toggleShowChild()">
+      {{ showChild ? 'Hide' : 'Show' }} Child
+    </button>
+    @if (showChild) {
+    <app-child [counter]="counter" [name]="name" />
+    }
   `,
 })
 export class ParentComponent
@@ -40,6 +47,18 @@ export class ParentComponent
 
   increment() {
     this.counter += 1;
+  }
+
+  changeName() {
+    this.name = 'Some Other Name';
+  }
+
+  changeUntrackedValue() {
+    this.untrackedValue += 1;
+  }
+
+  toggleShowChild() {
+    this.showChild = !this.showChild;
   }
 
   // Once on class initialization

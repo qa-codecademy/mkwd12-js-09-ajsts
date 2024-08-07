@@ -11,14 +11,17 @@ import {
   SimpleChanges,
   Input,
 } from '@angular/core';
+import { GrandchildComponent } from '../grandchild/grandchild.component';
 
 @Component({
   selector: 'app-child',
   standalone: true,
-  imports: [],
+  imports: [GrandchildComponent],
   template: `
     <h2>Child Component</h2>
     <p>Count {{ counter }}</p>
+    <button (click)="logSomething()">Log Something</button>
+    <app-grandchild [name]="name" />
   `,
 })
 export class ChildComponent
@@ -33,6 +36,11 @@ export class ChildComponent
     OnDestroy
 {
   @Input() counter: number = 0;
+  @Input() name: string = '';
+
+  logSomething() {
+    console.log('Something from child component!');
+  }
 
   // Once on class initialization
   constructor() {
