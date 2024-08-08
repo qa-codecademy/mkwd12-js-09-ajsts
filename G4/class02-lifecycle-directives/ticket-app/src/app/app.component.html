@@ -1,0 +1,27 @@
+<header>
+  <h1>{{ title }}!</h1>
+</header>
+<main>
+  <app-ticket-panel [ticketList]="ticketList" />
+  <div>
+    <button (click)="generateRandomColor()">RANDOMIZE COLOR</button>
+    <p [ngStyle]="{ backgroundColor: randomColor() }">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores harum
+      tempore voluptatibus enim quam consequatur qui debitis quos eos?
+      Recusandae, asperiores saepe. Veniam eaque amet alias excepturi quis.
+      Pariatur, nesciunt? Ex ut nihil velit repellat. Dolorem tempora eum earum
+      nostrum suscipit numquam vitae! Magni, autem? Quisquam, ratione, harum et
+      mollitia veniam rerum dolores eveniet ad aliquid minima accusamus fugit
+      amet. Amet voluptatibus ipsam iusto reprehenderit in neque? Eligendi cum
+      deleniti iste magnam obcaecati aliquid consequuntur eaque eveniet. Ad
+      dolorum aut quam praesentium eligendi repudiandae debitis, vero, quas
+      natus, quasi perferendis. Reprehenderit, quo optio explicabo voluptatem
+      animi illum, hic iure maiores vero quisquam reiciendis possimus libero
+      minus suscipit corporis aut dignissimos nam, omnis recusandae quasi porro
+      rerum nihil fuga. Similique, repellendus! Omnis aspernatur, dolores
+      nostrum veritatis odio nemo sequi! Quam rem fugiat voluptatum, unde
+      veritatis quia tempore officiis doloremque reprehenderit neque distinctio
+      cumque deserunt itaque, est asperiores? Ullam minus illo exercitationem.
+    </p>
+  </div>
+</main>
