@@ -17,6 +17,7 @@ import { GrandchildComponent } from '../grandchild/grandchild.component';
   selector: 'app-child',
   standalone: true,
   imports: [GrandchildComponent],
+  providers: [],
   template: `
     <h2>Child Component</h2>
     <p>Count {{ counter }}</p>
