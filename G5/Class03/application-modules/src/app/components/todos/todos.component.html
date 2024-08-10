@@ -1,0 +1,10 @@
+<app-single-todo />
+
+<section>
+  @for(todo of todos; track todo.id ){
+  <div>
+    {{ todo.title }}
+  </div>
+  <p>{{ checkIfComplete(todo.isDone) }}</p>
+  }
+</section>

@@ -1,0 +1,15 @@
+.navList {
+  display: flex;
+  gap: 20px;
+  list-style-type: none;
+}
+
+.navList li {
+  transition: all 0.2s ease-in;
+  cursor: pointer;
+}
+
+.navList li:hover {
+  color: cadetblue;
+  scale: 1.1;
+}
