@@ -1,0 +1,32 @@
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>
+      {{ room()?.name }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ room()?.type }} | ${{ room()?.pricePerNight }}/night
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <div class="card-image">
+    <img
+      mat-card-image
+      [src]="room()?.images?.[0]"
+      [alt]="room()?.name"
+      height="auto"
+      width="100%"
+    />
+  </div>
+
+  <mat-card-content>
+    <p>
+      {{ room()?.description }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button [matBadge]="room()?.beds" mat-fab matBadgeColor="primary">
+      <mat-icon fontIcon="beds" />
+    </button>
+  </mat-card-actions>
+</mat-card>

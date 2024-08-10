@@ -1,0 +1,7 @@
+<mat-grid-list cols="2">
+  @for (room of rooms(); track room.id) {
+  <mat-grid-tile>
+    <app-room [room]="room" />
+  </mat-grid-tile>
+  }
+</mat-grid-list>
