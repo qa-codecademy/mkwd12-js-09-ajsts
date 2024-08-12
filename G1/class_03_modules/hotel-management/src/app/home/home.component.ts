@@ -29,8 +29,10 @@ export class HomeComponent {
   isPetFriendly = signal<boolean>(false);
 
   filteredRooms = computed<Room[]>(() => {
+    let filteredRooms: Room[] = this.rooms();
+
     if (this.searchTerm().length) {
-      return this.rooms().filter(
+      filteredRooms = filteredRooms.filter(
         (room) =>
           room.name.toLowerCase().includes(this.searchTerm().toLowerCase()) ||
           room.description
@@ -39,7 +41,55 @@ export class HomeComponent {
       );
     }
 
-    return this.rooms();
+    if (this.guestCapacity() > 0) {
+      filteredRooms = filteredRooms.filter(
+        (room) => room.guestCapacity >= this.guestCapacity()
+      );
+    }
+
+    if (this.beds() > 0) {
+      filteredRooms = filteredRooms.filter(
+        (room) => room.beds + room.extraBeds >= this.beds()
+      );
+    }
+
+    if (this.board() !== Board.None) {
+      filteredRooms = filteredRooms.filter(
+        (room) => room.board === this.board()
+      );
+    }
+
+    if (this.view() !== RoomView.None) {
+      filteredRooms = filteredRooms.filter((room) => room.view === this.view());
+    }
+
+    if (this.parking() !== ParkingType.None) {
+      filteredRooms = filteredRooms.filter(
+        (room) => room.parking === this.parking()
+      );
+    }
+
+    if (this.hasAirConditioning()) {
+      filteredRooms = filteredRooms.filter((room) => room.hasAirConditioning);
+    }
+
+    if (this.isPetFriendly()) {
+      filteredRooms = filteredRooms.filter((room) => room.isPetFriendly);
+    }
+
+    if (this.pricePerNightFrom() > 0) {
+      filteredRooms = filteredRooms.filter(
+        (room) => room.pricePerNight >= this.pricePerNightFrom()
+      );
+    }
+
+    if (this.pricePerNightTo() > 0) {
+      filteredRooms = filteredRooms.filter(
+        (room) => room.pricePerNight <= this.pricePerNightTo()
+      );
+    }
+
+    return filteredRooms;
   });
 
   handleUpdateSearchTerm(updatedSearchTerm: string) {
