@@ -1,1 +1,10 @@
-<p>home works!</p>
+<!-- search input -->
+<app-search
+  [searchTerm]="searchTerm()"
+  (onUpdateSearchTerm)="handleUpdateSearchTerm($event)"
+/>
+
+<!-- filters -->
+
+<!-- results -->
+<app-rooms [rooms]="filteredRooms()" />

@@ -15,7 +15,7 @@ import { HeaderComponent } from './header/header.component';
 })
 export class AppComponent {
   rooms = signal<Room[]>([...(roomJson as Room[])]);
-  selectedPage = signal<'home' | 'room'>('room');
+  selectedPage = signal<'home' | 'room'>('home');
 
   handleSelectedPage(value: 'home' | 'room') {
     this.selectedPage.update(() => value);

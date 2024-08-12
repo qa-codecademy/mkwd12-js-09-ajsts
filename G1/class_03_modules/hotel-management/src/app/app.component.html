@@ -1,7 +1,7 @@
 <app-header (onSelectPage)="handleSelectedPage($event)" />
 
 @if (selectedPage() === 'home') {
-<app-home />
+<app-home [rooms]="rooms()" />
 } @else if (selectedPage() === 'room') {
 <app-rooms [rooms]="rooms()" />
 } @else {
