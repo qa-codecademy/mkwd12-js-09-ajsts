@@ -1,0 +1,23 @@
+.users-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.form-control {
+  background-color: #dfe6e9;
+  margin: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 290px;
+  border: 2px solid #2d3436;
+
+  .input {
+    font-size: 20px;
+    padding: 5px 0px;
+    text-align: center;
+    width: auto;
+    border: 1.5px solid #636e72;
+  }
+}
