@@ -9,3 +9,8 @@ ul {
     cursor: pointer;
   }
 }
+
+.active {
+  color: darkslategray;
+  text-transform: uppercase;
+}

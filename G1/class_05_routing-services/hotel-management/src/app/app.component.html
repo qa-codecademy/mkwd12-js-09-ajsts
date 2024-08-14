@@ -1,9 +1,3 @@
-<app-header (onSelectPage)="handleSelectedPage($event)" />
+<app-header />
 
-@if (selectedPage() === 'home') {
-<app-home [rooms]="rooms()" />
-} @else if (selectedPage() === 'room') {
-<app-rooms [rooms]="rooms()" />
-} @else {
-<p>No page selected</p>
-}
+<router-outlet />

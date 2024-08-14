@@ -13,11 +13,4 @@ import { HeaderComponent } from './header/header.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  rooms = signal<Room[]>([...(roomJson as Room[])]);
-  selectedPage = signal<'home' | 'room'>('home');
-
-  handleSelectedPage(value: 'home' | 'room') {
-    this.selectedPage.update(() => value);
-  }
-}
+export class AppComponent {}

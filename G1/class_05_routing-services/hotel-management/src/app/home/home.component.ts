@@ -7,6 +7,7 @@ import { FiltersComponent } from '../filters/filters.component';
 import { Board } from '../../types/board.enum';
 import { RoomView } from '../../types/room-view.enum';
 import { ParkingType } from '../../types/parking-type.enum';
+import roomsJson from '../../data/rooms.json';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ import { ParkingType } from '../../types/parking-type.enum';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  rooms = input<Room[]>([]);
+  rooms = signal<Room[]>([...(roomsJson as Room[])]);
   searchTerm = signal<string>('');
   guestCapacity = signal<number>(1);
   beds = signal<number>(1);

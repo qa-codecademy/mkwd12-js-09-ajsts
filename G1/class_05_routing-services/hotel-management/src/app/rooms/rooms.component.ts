@@ -1,17 +1,20 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Room } from '../../types/room.interface';
 import { RoomComponent } from '../room/room.component';
+import roomsJson from '../../data/rooms.json';
+import { RoomsService } from '../../services/rooms.service';
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
   imports: [MatGridListModule, RoomComponent],
+  providers: [RoomsService],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.css',
 })
 export class RoomsComponent implements OnInit {
-  rooms = input<Room[]>([]);
+  rooms = signal<Room[]>([...(roomsJson as Room[])]);
   cols: number = 0;
 
   ngOnInit(): void {
