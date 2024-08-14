@@ -1,4 +1,11 @@
-import { Component, computed, input, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  input,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { Room } from '../../types/room.interface';
 import { SearchComponent } from '../search/search.component';
 import { RoomsComponent } from '../rooms/rooms.component';
@@ -7,17 +14,19 @@ import { FiltersComponent } from '../filters/filters.component';
 import { Board } from '../../types/board.enum';
 import { RoomView } from '../../types/room-view.enum';
 import { ParkingType } from '../../types/parking-type.enum';
-import roomsJson from '../../data/rooms.json';
+import { RoomsService } from '../../services/rooms.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [SearchComponent, RoomsComponent, CommonModule, FiltersComponent],
+  providers: [RoomsService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {
-  rooms = signal<Room[]>([...(roomsJson as Room[])]);
+export class HomeComponent implements OnInit, OnDestroy {
+  rooms = signal<Room[]>([]);
   searchTerm = signal<string>('');
   guestCapacity = signal<number>(1);
   beds = signal<number>(1);
@@ -28,6 +37,7 @@ export class HomeComponent {
   pricePerNightTo = signal<number>(1000);
   hasAirConditioning = signal<boolean>(false);
   isPetFriendly = signal<boolean>(false);
+  subscription: Subscription = new Subscription();
 
   filteredRooms = computed<Room[]>(() => {
     let filteredRooms: Room[] = this.rooms();
@@ -93,7 +103,19 @@ export class HomeComponent {
     return filteredRooms;
   });
 
+  constructor(private roomService: RoomsService) {}
+
+  ngOnInit() {
+    this.subscription = this.roomService.rooms.subscribe((rooms: Room[]) => {
+      this.rooms.set(rooms);
+    });
+  }
+
   handleUpdateSearchTerm(updatedSearchTerm: string) {
     this.searchTerm.update(() => updatedSearchTerm);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

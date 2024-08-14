@@ -1,8 +1,7 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, input, OnInit, signal } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Room } from '../../types/room.interface';
 import { RoomComponent } from '../room/room.component';
-import roomsJson from '../../data/rooms.json';
 import { RoomsService } from '../../services/rooms.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { RoomsService } from '../../services/rooms.service';
   styleUrl: './rooms.component.css',
 })
 export class RoomsComponent implements OnInit {
-  rooms = signal<Room[]>([...(roomsJson as Room[])]);
+  rooms = input<Room[]>([]);
   cols: number = 0;
 
   ngOnInit(): void {
