@@ -1,7 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Room } from '../types/room.interface';
-import roomJson from '../data/rooms.json';
 import { RoomsComponent } from './rooms/rooms.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';

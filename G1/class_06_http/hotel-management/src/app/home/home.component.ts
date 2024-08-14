@@ -107,9 +107,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private roomService: RoomsService) {}
 
   ngOnInit() {
-    this.subscription = this.roomService.rooms.subscribe((rooms: Room[]) => {
-      this.rooms.set(rooms);
-    });
+    this.subscription = this.roomService
+      .getRooms()
+      .subscribe((response: any) => this.rooms.set(response.payload));
   }
 
   handleUpdateSearchTerm(updatedSearchTerm: string) {

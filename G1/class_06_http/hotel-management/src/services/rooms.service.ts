@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Room } from '../types/room.interface';
-import roomJson from '../data/rooms.json';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomsService {
-  private _rooms: BehaviorSubject<Room[]> = new BehaviorSubject<Room[]>([]);
+  roomPath = `http://localhost:3000/api/rooms`;
 
-  rooms: Observable<Room[]> = this._rooms.asObservable();
+  // private _rooms: BehaviorSubject<Room[]> = new BehaviorSubject<Room[]>([]);
 
-  constructor() {
-    this.updateRooms(roomJson as Room[]);
-  }
+  // rooms: Observable<Room[]> = this._rooms.asObservable();
 
-  updateRooms(rooms: Room[]) {
-    this._rooms.next(rooms);
+  constructor(private readonly http: HttpClient) {}
+
+  // updateRooms(rooms: Room[]) {
+  //   this._rooms.next(rooms);
+  // }
+
+  getRooms(): Observable<any> {
+    return this.http.get(this.roomPath);
   }
 }
