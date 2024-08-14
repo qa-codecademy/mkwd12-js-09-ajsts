@@ -1,0 +1,11 @@
+<section class="inputsContainer">
+  <input type="text" placeholder="Ticket Title" [(ngModel)]="title" />
+  <textarea cols="40" rows="10" [(ngModel)]="description"></textarea>
+  <select [(ngModel)]="assignee">
+    @for (assignee of possibleAssignees; track assignee) {
+    <option [value]="assignee">{{ assignee }}</option>
+    }
+  </select>
+
+  <button (click)="handleSubmit()">Create Ticket</button>
+</section>
