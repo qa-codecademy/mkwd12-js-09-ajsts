@@ -1,0 +1,11 @@
+<div class="input-container">
+  <mat-form-field class="input">
+    <input
+      matInput
+      type="search"
+      placeholder="Search..."
+      [value]="searchTerm()"
+      (input)="onUpdateSearchTerm.emit($any($event).target.value)"
+    />
+  </mat-form-field>
+</div>
