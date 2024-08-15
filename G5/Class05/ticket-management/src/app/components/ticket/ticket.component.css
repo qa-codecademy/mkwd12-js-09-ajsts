@@ -1,0 +1,12 @@
+.ticketCard {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 2px rgb(119, 111, 111);
+  transition: all 0.3s ease-in;
+}
+
+.ticketCard:hover {
+  box-shadow: 0 2px 2px red;
+}

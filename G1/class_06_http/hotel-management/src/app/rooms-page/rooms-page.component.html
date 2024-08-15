@@ -1,0 +1,10 @@
+<app-rooms [rooms]="(rooms | async)?.payload || []" />
+
+<!-- @for (room of rooms | async; track room.id) {
+<p>{{ room.name }}</p>
+} -->
+
+<!-- Used for debugging -->
+<!-- <pre>
+  {{ rooms | async | json }}
+</pre> -->

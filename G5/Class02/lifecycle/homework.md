@@ -1,5 +1,3 @@
-Sure, here is a cleaner and more organized version of your requirements in Markdown format:
-
 # Homework 2 - Building an Angular App (Car Dealership)
 
 ## NOTE: If you implemented the homework from the previous class, feel free to work on top of it.
