@@ -1,0 +1,10 @@
+<section class="container">
+  <h2>Reviews</h2>
+  <div class="list-content">
+    <ul>
+      <li *ngFor="let movie of movies" (click)="onSelectMovie(movie)">
+        <app-movie-item [movie]="movie"></app-movie-item>
+      </li>
+    </ul>
+  </div>
+</section>
