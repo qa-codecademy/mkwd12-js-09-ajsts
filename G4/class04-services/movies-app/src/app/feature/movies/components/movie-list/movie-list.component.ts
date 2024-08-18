@@ -22,6 +22,7 @@ export class MovieListComponent implements OnInit {
     // console.log('on init in movies list');
     // console.log(this.moviesService.movies);
     this.loggerService.logDetails('Movie List');
+    this.moviesService.getMovies();
   }
 
   onMovieSelect(movie: Movie) {

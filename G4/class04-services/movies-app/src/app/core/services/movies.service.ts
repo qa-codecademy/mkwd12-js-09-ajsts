@@ -1,12 +1,11 @@
 import { computed, Injectable, signal } from '@angular/core';
 import { Movie } from '../../feature/movies/models/movie.model';
-import { moviesMock } from '../../feature/movies/movies.mock';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
-  movies = signal<Movie[]>(moviesMock);
+  movies = signal<Movie[]>([]);
 
   //Computed runs when any of the signals referenced inside changes its value
   totalLikes = computed(() =>
@@ -14,6 +13,13 @@ export class MoviesService {
   );
 
   selectedMovie = signal<Movie>(null);
+
+  getMovies() {
+    fetch('http://localhost:3000/movies')
+      .then((res) => res.json())
+      .then((data: Movie[]) => this.movies.set(data))
+      .catch((err) => console.log(err));
+  }
 
   movieSelect(movie: Movie) {
     console.log('movie select called');
