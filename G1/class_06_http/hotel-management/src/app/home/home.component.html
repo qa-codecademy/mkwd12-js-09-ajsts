@@ -24,7 +24,7 @@
   (onIsPetFriendlyChange)="isPetFriendly.set($event)"
 />
 
-<app-rooms [rooms]="filteredRooms()" />
+<app-rooms [rooms]="(rooms$ | async) || []" />
 
 <mat-paginator
   [length]="total()"

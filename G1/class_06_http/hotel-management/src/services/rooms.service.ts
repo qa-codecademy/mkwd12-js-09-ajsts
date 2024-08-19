@@ -21,11 +21,7 @@ export class RoomsService {
   //   this._rooms.next(rooms);
   // }
 
-  getRooms(
-    searchQuery: SearchRoomQuery = {
-      page: 2,
-    }
-  ): Observable<Response<Room[]>> {
+  getRooms(searchQuery: SearchRoomQuery = {}): Observable<Response<Room[]>> {
     return this.http.get<Response<Room[]>>(this.roomPath, {
       params: {
         ...searchQuery,

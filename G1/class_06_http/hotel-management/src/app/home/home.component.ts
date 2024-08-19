@@ -1,4 +1,4 @@
-import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, effect, OnDestroy, OnInit, signal } from '@angular/core';
 import { Room } from '../../types/room.interface';
 import { SearchComponent } from '../search/search.component';
 import { RoomsComponent } from '../rooms/rooms.component';
@@ -8,9 +8,10 @@ import { Board } from '../../types/board.enum';
 import { RoomView } from '../../types/room-view.enum';
 import { ParkingType } from '../../types/parking-type.enum';
 import { RoomsService } from '../../services/rooms.service';
-import { Subscription } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { map, Observable, Subscription, tap } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
+import { SearchRoomQuery } from '../../types/search-room-query.interface';
+import { Response } from '../../types/response.interface';
 
 @Component({
   selector: 'app-home',
@@ -26,8 +27,8 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  rooms = signal<Room[]>([]);
+export class HomeComponent implements OnInit {
+  rooms$: Observable<Room[]> = new Observable<Room[]>();
   searchTerm = signal<string>('');
   guestCapacity = signal<number>(1);
   beds = signal<number>(1);
@@ -41,85 +42,55 @@ export class HomeComponent implements OnInit, OnDestroy {
   pageSize = signal<number>(10);
   page = signal<number>(0);
   total = signal<number>(0);
-  subscription: Subscription = new Subscription();
 
-  filteredRooms = computed<Room[]>(() => {
-    let filteredRooms: Room[] = this.rooms();
+  constructor(private roomService: RoomsService) {
+    effect(() => {
+      const searchQueryParams: SearchRoomQuery = {
+        page: this.page(),
+        pageSize: this.pageSize(),
+        searchTerm: this.searchTerm().length ? this.searchTerm() : '',
+        pricePerNightMin: this.pricePerNightFrom(),
+        pricePerNightMax: this.pricePerNightTo(),
+        isPetFriendly: this.isPetFriendly(),
+        hasAirConditioning: this.hasAirConditioning(),
+      };
 
-    if (this.searchTerm().length) {
-      filteredRooms = filteredRooms.filter(
-        (room) =>
-          room.name.toLowerCase().includes(this.searchTerm().toLowerCase()) ||
-          room.description
-            .toLowerCase()
-            .includes(this.searchTerm().toLowerCase())
-      );
-    }
+      if (this.guestCapacity() > 0) {
+        searchQueryParams.guestCapacity = this.guestCapacity();
+      }
 
-    if (this.guestCapacity() > 0) {
-      filteredRooms = filteredRooms.filter(
-        (room) => room.guestCapacity >= this.guestCapacity()
-      );
-    }
+      if (this.beds() > 0) {
+        searchQueryParams.beds = this.beds();
+      }
 
-    if (this.beds() > 0) {
-      filteredRooms = filteredRooms.filter(
-        (room) => room.beds + room.extraBeds >= this.beds()
-      );
-    }
+      if (this.board() !== Board.None) {
+        searchQueryParams.board = this.board();
+      }
 
-    if (this.board() !== Board.None) {
-      filteredRooms = filteredRooms.filter(
-        (room) => room.board === this.board()
-      );
-    }
+      if (this.view() !== RoomView.None) {
+        searchQueryParams.view = this.view();
+      }
 
-    if (this.view() !== RoomView.None) {
-      filteredRooms = filteredRooms.filter((room) => room.view === this.view());
-    }
+      if (this.parking() !== ParkingType.None) {
+        searchQueryParams.parking = this.parking();
+      }
 
-    if (this.parking() !== ParkingType.None) {
-      filteredRooms = filteredRooms.filter(
-        (room) => room.parking === this.parking()
-      );
-    }
-
-    if (this.hasAirConditioning()) {
-      filteredRooms = filteredRooms.filter((room) => room.hasAirConditioning);
-    }
-
-    if (this.isPetFriendly()) {
-      filteredRooms = filteredRooms.filter((room) => room.isPetFriendly);
-    }
-
-    if (this.pricePerNightFrom() > 0) {
-      filteredRooms = filteredRooms.filter(
-        (room) => room.pricePerNight >= this.pricePerNightFrom()
-      );
-    }
-
-    if (this.pricePerNightTo() > 0) {
-      filteredRooms = filteredRooms.filter(
-        (room) => room.pricePerNight <= this.pricePerNightTo()
-      );
-    }
-
-    return filteredRooms;
-  });
-
-  constructor(private roomService: RoomsService) {}
+      this.getRooms(searchQueryParams);
+    });
+  }
 
   ngOnInit() {
-    this.subscription = this.roomService
-      .getRooms()
-      .subscribe((response: any) => this.rooms.set(response.payload));
+    this.getRooms();
+  }
+
+  getRooms(searchParams?: SearchRoomQuery) {
+    this.rooms$ = this.roomService.getRooms(searchParams).pipe(
+      tap((response: Response<Room[]>) => this.total.set(response.total)),
+      map((response: Response<Room[]>) => response.payload)
+    );
   }
 
   handleUpdateSearchTerm(updatedSearchTerm: string) {
     this.searchTerm.update(() => updatedSearchTerm);
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }
