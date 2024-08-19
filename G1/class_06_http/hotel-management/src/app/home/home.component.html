@@ -24,6 +24,8 @@
   (onIsPetFriendlyChange)="isPetFriendly.set($event)"
 />
 
+<app-loader [isLoading]="isLoading()" />
+
 <app-rooms [rooms]="(rooms$ | async) || []" />
 
 <mat-paginator

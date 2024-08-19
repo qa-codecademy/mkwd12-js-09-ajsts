@@ -1,4 +1,4 @@
-import { Component, effect, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, effect, OnInit, signal } from '@angular/core';
 import { Room } from '../../types/room.interface';
 import { SearchComponent } from '../search/search.component';
 import { RoomsComponent } from '../rooms/rooms.component';
@@ -8,10 +8,11 @@ import { Board } from '../../types/board.enum';
 import { RoomView } from '../../types/room-view.enum';
 import { ParkingType } from '../../types/parking-type.enum';
 import { RoomsService } from '../../services/rooms.service';
-import { map, Observable, Subscription, tap } from 'rxjs';
+import { finalize, map, Observable, of, Subscription, tap } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { SearchRoomQuery } from '../../types/search-room-query.interface';
 import { Response } from '../../types/response.interface';
+import { LoaderComponent } from '../loader/loader.component';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ import { Response } from '../../types/response.interface';
     CommonModule,
     FiltersComponent,
     MatPaginator,
+    LoaderComponent,
   ],
   providers: [RoomsService],
   templateUrl: './home.component.html',
@@ -42,41 +44,47 @@ export class HomeComponent implements OnInit {
   pageSize = signal<number>(10);
   page = signal<number>(0);
   total = signal<number>(0);
+  isLoading = signal<boolean>(false);
 
   constructor(private roomService: RoomsService) {
-    effect(() => {
-      const searchQueryParams: SearchRoomQuery = {
-        page: this.page(),
-        pageSize: this.pageSize(),
-        searchTerm: this.searchTerm().length ? this.searchTerm() : '',
-        pricePerNightMin: this.pricePerNightFrom(),
-        pricePerNightMax: this.pricePerNightTo(),
-        isPetFriendly: this.isPetFriendly(),
-        hasAirConditioning: this.hasAirConditioning(),
-      };
+    effect(
+      () => {
+        const searchQueryParams: SearchRoomQuery = {
+          page: this.page(),
+          pageSize: this.pageSize(),
+          searchTerm: this.searchTerm().length ? this.searchTerm() : '',
+          pricePerNightMin: this.pricePerNightFrom(),
+          pricePerNightMax: this.pricePerNightTo(),
+          isPetFriendly: this.isPetFriendly(),
+          hasAirConditioning: this.hasAirConditioning(),
+        };
 
-      if (this.guestCapacity() > 0) {
-        searchQueryParams.guestCapacity = this.guestCapacity();
+        if (this.guestCapacity() > 0) {
+          searchQueryParams.guestCapacity = this.guestCapacity();
+        }
+
+        if (this.beds() > 0) {
+          searchQueryParams.beds = this.beds();
+        }
+
+        if (this.board() !== Board.None) {
+          searchQueryParams.board = this.board();
+        }
+
+        if (this.view() !== RoomView.None) {
+          searchQueryParams.view = this.view();
+        }
+
+        if (this.parking() !== ParkingType.None) {
+          searchQueryParams.parking = this.parking();
+        }
+
+        this.getRooms(searchQueryParams);
+      },
+      {
+        allowSignalWrites: true,
       }
-
-      if (this.beds() > 0) {
-        searchQueryParams.beds = this.beds();
-      }
-
-      if (this.board() !== Board.None) {
-        searchQueryParams.board = this.board();
-      }
-
-      if (this.view() !== RoomView.None) {
-        searchQueryParams.view = this.view();
-      }
-
-      if (this.parking() !== ParkingType.None) {
-        searchQueryParams.parking = this.parking();
-      }
-
-      this.getRooms(searchQueryParams);
-    });
+    );
   }
 
   ngOnInit() {
@@ -84,9 +92,12 @@ export class HomeComponent implements OnInit {
   }
 
   getRooms(searchParams?: SearchRoomQuery) {
+    this.isLoading.set(true);
+
     this.rooms$ = this.roomService.getRooms(searchParams).pipe(
       tap((response: Response<Room[]>) => this.total.set(response.total)),
-      map((response: Response<Room[]>) => response.payload)
+      map((response: Response<Room[]>) => response.payload),
+      finalize(() => this.isLoading.set(false))
     );
   }
 

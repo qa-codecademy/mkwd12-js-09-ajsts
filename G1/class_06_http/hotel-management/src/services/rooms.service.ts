@@ -11,15 +11,7 @@ import { SearchRoomQuery } from '../types/search-room-query.interface';
 export class RoomsService {
   roomPath = `http://localhost:3000/api/rooms`;
 
-  // private _rooms: BehaviorSubject<Room[]> = new BehaviorSubject<Room[]>([]);
-
-  // rooms: Observable<Room[]> = this._rooms.asObservable();
-
   constructor(private readonly http: HttpClient) {}
-
-  // updateRooms(rooms: Room[]) {
-  //   this._rooms.next(rooms);
-  // }
 
   getRooms(searchQuery: SearchRoomQuery = {}): Observable<Response<Room[]>> {
     return this.http.get<Response<Room[]>>(this.roomPath, {
