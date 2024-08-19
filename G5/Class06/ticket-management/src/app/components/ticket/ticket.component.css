@@ -1,0 +1,41 @@
+.ticketCard {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 2px rgb(119, 111, 111);
+  transition: all 0.3s ease-in;
+  position: relative;
+}
+
+.ticketCard:hover {
+  box-shadow: 0 2px 2px red;
+}
+
+.completed {
+  border: 2px solid green;
+}
+
+.inProgress {
+  border: 2px solid orange;
+}
+
+.completed-text {
+  color: green;
+}
+
+.inProgress-text {
+  color: orange;
+}
+
+.removeBtn {
+  border: none;
+  cursor: pointer;
+  background-color: orangered;
+  color: #ccc;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 5px;
+  margin-right: 5px;
+}

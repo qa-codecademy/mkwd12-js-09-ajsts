@@ -1,0 +1,14 @@
+<div class="filters">
+  <input
+    type="text"
+    placeholder="Filter by ticket name"
+    class="titleFilter"
+    (keyup)="onInputChange($event)"
+  />
+</div>
+
+<section class="ticketsContainer">
+  @for(ticket of tickets() | filter: searchValue() ; track ticket.id){
+  <app-ticket [ticket]="ticket" />
+  }
+</section>

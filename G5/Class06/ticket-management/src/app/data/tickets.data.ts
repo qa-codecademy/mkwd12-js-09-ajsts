@@ -1,0 +1,60 @@
+import { Ticket, TicketStatus } from '../types/ticket.interface';
+
+export const TICKETS_DATA: Ticket[] = [
+  {
+    id: '1',
+    title: 'Wash the dishes',
+    description: 'Description ticket 1',
+    assignee: 'John Doe',
+    status: TicketStatus.PENDING,
+    createdAt: new Date('12-08-2024'),
+  },
+  {
+    id: '2',
+    title: 'Walk the dog',
+    description: 'Description ticket 2',
+    assignee: 'Jane Doe',
+    status: TicketStatus.PENDING,
+    createdAt: new Date('11-08-2024'),
+  },
+  {
+    id: '3',
+    title: 'Go to the park',
+    description: 'Description ticket 3',
+    assignee: 'John Doe',
+    status: TicketStatus.DONE,
+    createdAt: new Date('09-08-2024'),
+  },
+  {
+    id: '4',
+    title: 'Go to the gym',
+    description: 'Description ticket 4',
+    assignee: 'Steve Lee',
+    status: TicketStatus.IN_DEVELOPMENT,
+    createdAt: new Date('12-08-2024'),
+  },
+  {
+    id: '5',
+    title: 'Go shopping',
+    description: 'Description ticket 5',
+    assignee: 'Jane Doe',
+    status: TicketStatus.IN_DEVELOPMENT,
+    createdAt: new Date('14-08-2024'),
+  },
+  {
+    id: '6',
+    title: 'Read a book',
+    description: 'Description ticket 6',
+    assignee: 'John Doe',
+    status: TicketStatus.PENDING,
+    createdAt: new Date('14-08-2024'),
+  },
+  {
+    id: '7',
+    title: 'Go Swimming',
+    description: 'Description ticket 7',
+    assignee: 'Bob Bobski',
+    status: TicketStatus.PENDING,
+    createdAt: new Date('10-08-2024'),
+  },
+];
