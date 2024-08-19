@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Room } from '../types/room.interface';
 import { HttpClient } from '@angular/common/http';
+import { Response } from '../types/response.interface';
+import { SearchRoomQuery } from '../types/search-room-query.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +21,15 @@ export class RoomsService {
   //   this._rooms.next(rooms);
   // }
 
-  getRooms(): Observable<any> {
-    return this.http.get(this.roomPath);
+  getRooms(
+    searchQuery: SearchRoomQuery = {
+      page: 2,
+    }
+  ): Observable<Response<Room[]>> {
+    return this.http.get<Response<Room[]>>(this.roomPath, {
+      params: {
+        ...searchQuery,
+      },
+    });
   }
 }

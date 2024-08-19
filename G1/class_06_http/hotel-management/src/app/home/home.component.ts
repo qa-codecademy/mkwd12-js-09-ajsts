@@ -1,11 +1,4 @@
-import {
-  Component,
-  computed,
-  input,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
 import { Room } from '../../types/room.interface';
 import { SearchComponent } from '../search/search.component';
 import { RoomsComponent } from '../rooms/rooms.component';
@@ -17,11 +10,18 @@ import { ParkingType } from '../../types/parking-type.enum';
 import { RoomsService } from '../../services/rooms.service';
 import { Subscription } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SearchComponent, RoomsComponent, CommonModule, FiltersComponent],
+  imports: [
+    SearchComponent,
+    RoomsComponent,
+    CommonModule,
+    FiltersComponent,
+    MatPaginator,
+  ],
   providers: [RoomsService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -38,6 +38,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   pricePerNightTo = signal<number>(1000);
   hasAirConditioning = signal<boolean>(false);
   isPetFriendly = signal<boolean>(false);
+  pageSize = signal<number>(10);
+  page = signal<number>(0);
+  total = signal<number>(0);
   subscription: Subscription = new Subscription();
 
   filteredRooms = computed<Room[]>(() => {

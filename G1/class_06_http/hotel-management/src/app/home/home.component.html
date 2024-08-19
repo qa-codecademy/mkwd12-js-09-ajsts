@@ -26,6 +26,14 @@
 
 <app-rooms [rooms]="filteredRooms()" />
 
+<mat-paginator
+  [length]="total()"
+  [pageSize]="pageSize()"
+  [pageSizeOptions]="[5, 10, 25, 50, 100]"
+  aria-label="Select page"
+  (page)="pageSize.set($event.pageSize); page.set($event.pageIndex)"
+/>
+
 <!-- <pre>
   {{ "Beds " + beds() }}
   {{ "Guest Capacity " + guestCapacity() }}
