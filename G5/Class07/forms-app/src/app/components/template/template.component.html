@@ -1,0 +1,56 @@
+<form class="myForm" (ngSubmit)="onHandleSubmit(myForm)" #myForm="ngForm">
+  <!-- <form class="myForm" (ngSubmit)="onHandleSubmit()" #myForm="ngForm"> -->
+  <input
+    type="text"
+    placeholder="Enter Firstname"
+    ngModel
+    name="firstName"
+    required
+    #firstName="ngModel"
+  />
+  @if(firstName.invalid && firstName.touched){
+  <span>Enter first name</span>
+  }
+
+  <input
+    type="text"
+    placeholder="Enter Lastname"
+    ngModel
+    name="lastName"
+    required
+    #lastName="ngModel"
+  />
+  @if (lastName.invalid && lastName.touched) {
+  <span>Enter last name</span>
+  }
+
+  <input
+    type="text"
+    placeholder="Enter Phonenumber"
+    ngModel
+    name="phoneNumber"
+  />
+
+  <input
+    type="email"
+    placeholder="Enter Email"
+    ngModel
+    name="email"
+    email
+    required
+    #email="ngModel"
+  />
+  @if(email.invalid && email.touched){
+  <span>Enter email</span>
+
+  }
+
+  <textarea placeholder="Cover letter" ngModel name="coverLetter"></textarea>
+
+  <button type="submit" [disabled]="myForm.invalid">Submit</button>
+</form>
+
+<hr />
+
+<!-- If you want to display a value and not use 2 way data binding =) -->
+<p>{{ myForm.form.get("firstName")?.value }}</p>

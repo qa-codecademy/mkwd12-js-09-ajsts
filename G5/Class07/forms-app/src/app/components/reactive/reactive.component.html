@@ -1,0 +1,55 @@
+<form
+  class="myForm"
+  [formGroup]="applicationForm"
+  (ngSubmit)="onHandleSubmit()"
+>
+  <input
+    type="text"
+    placeholder="Enter Firstname"
+    formControlName="firstName"
+  />
+  @if(getErrorMessage('firstName', 'required')){
+  <span>{{ getErrorMessage("firstName", "required") }}</span>
+  }
+
+  <input type="text" placeholder="Enter Lastname" formControlName="lastName" />
+
+  @if(getErrorMessage('lastName', 'required')){
+  <span>{{ getErrorMessage("lastName", "required") }}</span>
+  } @if(getErrorMessage('lastName', 'minlength')){
+  <span>{{ getErrorMessage("lastName", "minlength") }}</span>
+  }
+
+  <input
+    type="text"
+    placeholder="Enter Phonenumber"
+    formControlName="phoneNumber"
+  />
+
+  <input type="email" placeholder="Enter Email" formControlName="email" />
+  @if(getErrorMessage('email', 'required')){
+  <span>{{ getErrorMessage("email", "required") }}</span>
+  } @if(getErrorMessage('email', 'email')){
+  <span>{{ getErrorMessage("email", "email") }}</span>
+  }
+
+  <textarea placeholder="Cover letter" formControlName="coverLetter"></textarea>
+
+  <div formArrayName="pastWorkExperiences">
+    <!-- We will display here -->
+
+    @for (control of getControls(); track $index) {
+    <input
+      type="text"
+      placeholder="Enter past job"
+      [formControlName]="$index"
+    />
+    }
+
+    <button type="button" (click)="onAddExperience()">
+      Add Work Experience +
+    </button>
+  </div>
+
+  <button type="submit" [disabled]="applicationForm.invalid">Submit</button>
+</form>
