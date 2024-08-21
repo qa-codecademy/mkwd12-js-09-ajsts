@@ -1,0 +1,27 @@
+.myForm {
+  width: 40%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.myForm input,
+textarea {
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.myForm input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.myForm span {
+  font-size: 12px;
+  color: red;
+}
