@@ -1,5 +1,10 @@
 import { ParkingType } from './../../types/parking-type.enum';
-import { Component, input } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  input,
+} from '@angular/core';
 import { Room } from '../../types/room.interface';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +14,9 @@ import { NgIf } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Board } from '../../types/board.enum';
 import { RoomView } from '../../types/room-view.enum';
+import { HoverHighlightDirective } from '../../directives/hover-highlight.directive';
+import { ShortenPipe } from '../../pipes/shorten.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-room',
@@ -20,7 +28,11 @@ import { RoomView } from '../../types/room-view.enum';
     MatBadgeModule,
     MatTooltipModule,
     NgIf,
+    HoverHighlightDirective,
+    ShortenPipe,
+    RouterLink,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './room.component.html',
   styleUrl: './room.component.css',
 })

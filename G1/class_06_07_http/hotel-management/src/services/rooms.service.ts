@@ -20,4 +20,8 @@ export class RoomsService {
       },
     });
   }
+
+  getRoom(id: string): Observable<Room> {
+    return this.http.get<Room>(`${this.roomPath}/${id}`);
+  }
 }
