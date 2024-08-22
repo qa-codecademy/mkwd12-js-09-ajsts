@@ -1,4 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import { IsArray, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class BackfillCarsDto {
@@ -9,6 +10,7 @@ export class BackfillCarsDto {
   })
   @IsOptional()
   @IsInt()
+  @Type(() => Number)
   count?: number = 50;
 
   @ApiPropertyOptional({
