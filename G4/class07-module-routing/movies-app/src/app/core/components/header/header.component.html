@@ -1,0 +1,35 @@
+<header>
+  <div routerLink="/" class="logo">
+    <img src="images/movies-logo.svg" alt="" />
+  </div>
+  <nav>
+    <ul>
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{
+            exact: true
+          }"
+          >Home</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/movies"
+          [routerLinkActiveOptions]="{
+            exact: true
+          }"
+          routerLinkActive="active"
+          >Movies</a
+        >
+      </li>
+      <li>
+        <a routerLink="/movies/add" routerLinkActive="active">Add Movie</a>
+      </li>
+      <li>
+        <a routerLink="/about" routerLinkActive="active">About</a>
+      </li>
+    </ul>
+  </nav>
+</header>

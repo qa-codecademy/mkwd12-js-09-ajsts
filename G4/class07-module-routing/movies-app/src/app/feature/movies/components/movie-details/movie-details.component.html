@@ -1,0 +1,42 @@
+<section class="container">
+  <h2>Movie Details</h2>
+  <!-- Same as fragment from react, basically a tag that doesn't render but structural directives can be used on it  -->
+  <ng-container *ngIf="selectedMovie">
+    <div class="details-heading">
+      <h3>{{ selectedMovie.title }}</h3>
+      <span class="item-rating">{{ selectedMovie.rating }}</span>
+    </div>
+    <div class="details-body">
+      <h4>Movie Details</h4>
+      <div class="details-info">
+        <p>Year: {{ selectedMovie.year }}</p>
+        <p>Director: {{ selectedMovie.director }}</p>
+        <p>Genres: {{ selectedMovie.genres }}</p>
+      </div>
+      <h4>Review</h4>
+      <p>{{ selectedMovie.text }}</p>
+    </div>
+    <div class="details-footer">
+      <p>
+        <em>{{ selectedMovie.author }}</em>
+      </p>
+      <div class="controls">
+        <app-button
+          text="👍"
+          [style]="{ backgroundColor: 'lightgreen' }"
+          (btnClick)="onAddLikeDislike('LIKE')"
+        ></app-button>
+        <app-button
+          text="👎"
+          [style]="{ backgroundColor: 'lightpink' }"
+          (btnClick)="onAddLikeDislike('DISLIKE')"
+        ></app-button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!selectedMovie">
+    <div class="details-heading">
+      <h3>No Movie Selected</h3>
+    </div>
+  </ng-container>
+</section>
