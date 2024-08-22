@@ -1,6 +1,6 @@
-<mat-card appearance="outlined">
+<mat-card appearance="outlined" appHoverHighlight>
   <mat-card-header>
-    <mat-card-title>
+    <mat-card-title routerLink="/rooms/{{ room()?.id }}">
       {{ room()?.name }}
     </mat-card-title>
     <mat-card-subtitle>
@@ -21,7 +21,7 @@
 
   <mat-card-content>
     <p>
-      {{ room()?.description }}
+      {{ room()?.description | shorten : 90 }}
     </p>
   </mat-card-content>
 
