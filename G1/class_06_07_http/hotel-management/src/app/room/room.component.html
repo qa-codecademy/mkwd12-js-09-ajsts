@@ -1,4 +1,9 @@
-<mat-card appearance="outlined" appHoverHighlight>
+<mat-card
+  appearance="outlined"
+  appHoverHighlight
+  appHighlightCard
+  [price]="room()?.pricePerNight"
+>
   <mat-card-header>
     <mat-card-title routerLink="/rooms/{{ room()?.id }}">
       {{ room()?.name }}

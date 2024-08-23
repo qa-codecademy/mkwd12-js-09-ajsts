@@ -5,6 +5,10 @@ In this module, we will implement routing and navigation in our application. Thi
 ## Commands to run
 
 1. ng generate service rooms
+2. ng generate pipe yes-no
+3. ng generate pipe shorten
+4. ng generate directive hover-highlight
+5. ng generate directive highlight-card
 
 ## Useful links
 

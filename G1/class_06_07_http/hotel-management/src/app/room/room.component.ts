@@ -17,6 +17,7 @@ import { RoomView } from '../../types/room-view.enum';
 import { HoverHighlightDirective } from '../../directives/hover-highlight.directive';
 import { ShortenPipe } from '../../pipes/shorten.pipe';
 import { RouterLink } from '@angular/router';
+import { HighlightCardDirective } from '../../directives/highlight-card.directive';
 
 @Component({
   selector: 'app-room',
@@ -29,6 +30,7 @@ import { RouterLink } from '@angular/router';
     MatTooltipModule,
     NgIf,
     HoverHighlightDirective,
+    HighlightCardDirective,
     ShortenPipe,
     RouterLink,
   ],
