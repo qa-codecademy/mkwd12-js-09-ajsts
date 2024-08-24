@@ -1,10 +1,10 @@
-# Homework 3 - Building an Angular App (Car Dealership)
+# Homework 4 - Building an Angular App (Car Dealership)
 
-###### Deadline: 20.09.2024
+###### Deadline:20.09.2024
 
-## Task 1: Get data from the server
+## Task 1: Add page to submit a new car for sale
 
-Get all cars from the server and display them in the homepage. Use query params to filter the data instead of client side filtering.
+Create a a new component where a person can add a new car for sale. For images either upload them to a online server and pass the URL or leave them as blanks and automatically the server will generate the URLs for the images.
 
 ## Links for inspiration
 
