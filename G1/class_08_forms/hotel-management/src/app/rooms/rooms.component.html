@@ -1,0 +1,13 @@
+<mat-grid-list
+  class="grid-container"
+  [cols]="cols"
+  gutterSize="10px"
+  rowHeight="580px"
+  (window:resize)="onResize($event)"
+>
+  @for (room of rooms(); track room.id) {
+  <mat-grid-tile>
+    <app-room [room]="room" />
+  </mat-grid-tile>
+  }
+</mat-grid-list>

@@ -1,0 +1,125 @@
+<mat-card
+  appearance="outlined"
+  appHoverHighlight
+  appHighlightCard
+  [price]="room()?.pricePerNight"
+>
+  <mat-card-header>
+    <mat-card-title routerLink="/rooms/{{ room()?.id }}">
+      {{ room()?.name }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ room()?.type }} | ${{ room()?.pricePerNight }}/night
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <div class="card-image">
+    <!-- Don't use this syntax src="{{room()?.images?.[0]}}"  -->
+    <img
+      mat-card-image
+      [src]="room()?.images?.[0]"
+      [alt]="room()?.name"
+      height="auto"
+      width="100%"
+    />
+  </div>
+
+  <mat-card-content>
+    <p>
+      {{ room()?.description | shorten : 90 }}
+    </p>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button [matBadge]="room()?.beds" mat-fab matBadgeColor="primary">
+      <mat-icon fontIcon="beds" />
+    </button>
+
+    <button
+      *ngIf="!!room()?.extraBeds"
+      mat-fab
+      [matBadge]="room()?.extraBeds"
+      matBadgeColor="primary"
+    >
+      <mat-icon fontIcon="single_bed" />
+    </button>
+
+    <button mat-fab [matBadge]="room()?.guestCapacity" matBadgeColor="primary">
+      <mat-icon fontIcon="groups" />
+    </button>
+
+    <button mat-fab [matBadge]="room()?.baths" matBadgeColor="primary">
+      <mat-icon fontIcon="bathtub" />
+    </button>
+
+    <button
+      *ngIf="!!room()?.hasAirConditioning"
+      mat-fab
+      matBadgeColor="primary"
+    >
+      <mat-icon fontIcon="ac_unit" />
+    </button>
+
+    <button *ngIf="!!room()?.isPetFriendly" mat-fab matBadgeColor="primary">
+      <mat-icon fontIcon="pets" />
+    </button>
+
+    <button
+      *ngIf="room()?.parking !== ParkingType.None"
+      mat-fab
+      [matTooltip]="room()?.parking + ' Parking'"
+      matBadgeColor="primary"
+    >
+      <mat-icon fontIcon="local_parking" />
+    </button>
+
+    <button
+      *ngIf="room()?.board !== Board.None"
+      mat-fab
+      [matTooltip]="room()?.board!"
+      matBadgeColor="primary"
+    >
+      <mat-icon fontIcon="dinner_dining" />
+    </button>
+
+    @if(room()?.view === RoomView.Sea) {
+    <button
+      mat-fab
+      matTooltipPosition="above"
+      [matTooltip]="room()?.view + ' View'"
+      matBadgeColor="primary"
+    >
+      <mat-icon fontIcon="beach_access" />
+    </button>
+    } @else if (room()?.view === RoomView.Garden) {
+    <button
+      mat-fab
+      matTooltipPosition="above"
+      [matTooltip]="room()?.view + ' View'"
+      matBadgeColor="primary"
+    >
+      <mat-icon fontIcon="nature" />
+    </button>
+    } @else if (room()?.view === RoomView.Pool) {
+    <button
+      mat-fab
+      matTooltipPosition="above"
+      [matTooltip]="room()?.view + ' View'"
+      matBadgeColor="primary"
+    >
+      <mat-icon fontIcon="pool" />
+    </button>
+    }
+  </mat-card-actions>
+
+  <button
+    mat-fab
+    extended
+    class="book-now-btn"
+    [routerLink]="['/rooms', room()?.id, 'add-guest']"
+  >
+    <mat-icon fontIcon="calendar_today" /> Book Now
+  </button>
+</mat-card>
+
+<!-- /rooms/{{ room()?.id }}/add-guest -->

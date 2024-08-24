@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <h2>Book room: {{ (room$ | async)?.name }}</h2>
+
+  <div class="guest-type">
+    <mat-button-toggle-group
+      name="guestType"
+      aria-label="Guest Type"
+      [value]="selectedGuestType()"
+      (change)="selectedGuestType.set($event.value)"
+    >
+      <mat-button-toggle value="existing">Existing</mat-button-toggle>
+      <mat-button-toggle value="new">New</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div>
+    @if(selectedGuestType() === 'existing') {
+    <app-select-guest />
+    } @else {
+    <app-add-guest />
+    }
+  </div>
+</div>

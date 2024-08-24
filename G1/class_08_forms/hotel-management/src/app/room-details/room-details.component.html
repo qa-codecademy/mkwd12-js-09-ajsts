@@ -1,0 +1,65 @@
+<app-loader [isLoading]="isLoading()" />
+
+@if ((room$ | async) && !isLoading()) {
+<div class="wrapper">
+  <h1>{{ (room$ | async)?.name }}</h1>
+  <p>{{ (room$ | async)?.description }}</p>
+
+  <div class="images">
+    @for (imageUrl of (room$ | async)?.images; track imageUrl) {
+    <img [src]="imageUrl" alt="room image" />
+    }
+  </div>
+
+  <h2>Commodities</h2>
+  <ul>
+    <li>Type: {{ (room$ | async)?.type }}</li>
+    <li>
+      Price per night: {{ (room$ | async)?.pricePerNight | currency : "EUR" }}
+    </li>
+    <li>Beds: {{ (room$ | async)?.beds }}</li>
+    <li
+      [ngClass]="{
+        available: (room$ | async)?.extraBeds,
+        unavailable: !(room$ | async)?.extraBeds,
+      }"
+    >
+      Extra beds: {{ (room$ | async)?.extraBeds }}
+    </li>
+    <li>Guest Capacity: {{ (room$ | async)?.guestCapacity }}</li>
+    <li
+      [ngClass]="{
+        available: (room$ | async)?.view !== RoomView.None,
+        unavailable: (room$ | async)?.view === RoomView.None,
+      }"
+    >
+      View: {{ (room$ | async)?.view }}
+    </li>
+    <li
+      [ngClass]="{
+        available: (room$ | async)?.parking !== ParkingType.None,
+        unavailable: (room$ | async)?.parking === ParkingType.None,
+      }"
+    >
+      Parking: {{ (room$ | async)?.parking }}
+    </li>
+    <li
+      [ngClass]="{
+        available: (room$ | async)?.board !== Board.None,
+        unavailable: (room$ | async)?.board === Board.None,
+      }"
+    >
+      Board: {{ (room$ | async)?.board }}
+    </li>
+    <li>
+      Location: {{ (room$ | async)?.city }}, {{ (room$ | async)?.country }}
+    </li>
+    <li>Is Pet Friendly: {{ !!(room$ | async)?.isPetFriendly | yesNo }}</li>
+    <li>
+      Has Air Conditioning: {{ !!(room$ | async)?.hasAirConditioning | yesNo }}
+    </li>
+  </ul>
+</div>
+} @else if (!(room$ | async) && !isLoading()) {
+<p>Room not found.</p>
+}

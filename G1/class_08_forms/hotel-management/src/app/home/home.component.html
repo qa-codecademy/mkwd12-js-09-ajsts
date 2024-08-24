@@ -1,0 +1,49 @@
+<app-search
+  [searchTerm]="searchTerm()"
+  (onUpdateSearchTerm)="handleUpdateSearchTerm($event)"
+/>
+
+<app-filters
+  [guestCapacity]="guestCapacity()"
+  (onGuestCapacityChange)="guestCapacity.set($event)"
+  [beds]="beds()"
+  (onBedsChange)="beds.set($event)"
+  [board]="board()"
+  (onBoardChange)="board.set($event)"
+  [view]="view()"
+  (onViewChange)="view.set($event)"
+  [parking]="parking()"
+  (onParkingChange)="parking.set($event)"
+  [pricePerNightFrom]="pricePerNightFrom()"
+  (onPricePerNightFromChange)="pricePerNightFrom.set($event)"
+  [pricePerNightTo]="pricePerNightTo()"
+  (onPricePerNightToChange)="pricePerNightTo.set($event)"
+  [hasAirConditioning]="hasAirConditioning()"
+  (onHasAirConditioningChange)="hasAirConditioning.set($event)"
+  [isPetFriendly]="isPetFriendly()"
+  (onIsPetFriendlyChange)="isPetFriendly.set($event)"
+/>
+
+<app-loader [isLoading]="isLoading()" />
+
+<app-rooms [rooms]="(rooms$ | async) || []" />
+
+<mat-paginator
+  [length]="total()"
+  [pageSize]="pageSize()"
+  [pageSizeOptions]="[5, 10, 25, 50, 100]"
+  aria-label="Select page"
+  (page)="pageSize.set($event.pageSize); page.set($event.pageIndex)"
+/>
+
+<!-- <pre>
+  {{ "Beds " + beds() }}
+  {{ "Guest Capacity " + guestCapacity() }}
+  {{ "View " + view() }}
+  {{ "Board " + board() }}
+  {{ "Parking " + parking() }}
+  {{ "Price from " + pricePerNightFrom() }}
+  {{ "Price to " + pricePerNightTo() }}
+  {{ "AC " + hasAirConditioning() }}
+  {{ "Pets " + isPetFriendly() }}
+</pre> -->
