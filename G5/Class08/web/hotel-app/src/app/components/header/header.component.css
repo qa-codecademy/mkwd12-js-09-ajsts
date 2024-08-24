@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #005050;
+  color: #00dddd;
+
+  margin-bottom: 30px;
+}
+
+.navList {
+  display: flex;
+  gap: 20px;
+  list-style-type: none;
+}
+
+.navList li {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.navList li a {
+  text-decoration: none;
+  color: #00dddd;
+}
+
+.navList li:hover {
+  background-color: #006a6a;
+  border-radius: 4px;
+}
