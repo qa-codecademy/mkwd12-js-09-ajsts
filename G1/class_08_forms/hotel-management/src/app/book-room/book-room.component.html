@@ -13,15 +13,15 @@
     </mat-button-toggle-group>
   </div>
 
-  <div>
+  <div class="guest-container">
     @if(selectedGuestType() === 'existing') {
-    <app-select-guest />
+    <app-select-guest [guestControl]="guestControl" />
     } @else {
     <app-add-guest />
     }
   </div>
 
-  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="booking-dates">
     <mat-form-field>
       <mat-label>Select booking dates</mat-label>
       <mat-date-range-input [rangePicker]="picker">
@@ -37,8 +37,13 @@
       <mat-date-range-picker #picker />
     </mat-form-field>
 
-    <div>
-      <button mat-flat-button color="primary" type="submit">
+    <div class="form-actions">
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="bookingForm.invalid"
+        type="submit"
+      >
         Create Booking
       </button>
     </div>

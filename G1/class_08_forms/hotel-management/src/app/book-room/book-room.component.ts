@@ -4,7 +4,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AddGuestComponent } from '../add-guest/add-guest.component';
 import { SelectGuestComponent } from '../select-guest/select-guest.component';
 import { RoomsService } from '../../services/rooms.service';
-import { catchError, Observable, of, switchMap } from 'rxjs';
+import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 import { Room } from '../../types/room.interface';
 import { AsyncPipe } from '@angular/common';
 import {
@@ -20,6 +20,8 @@ import {
   provideNativeDateAdapter,
 } from '@angular/material/core';
 import { BookingsService } from '../../services/bookings.service';
+import { MatButtonModule } from '@angular/material/button';
+import { CreateBooking } from '../../types/booking.interface';
 
 @Component({
   selector: 'app-book-room',
@@ -32,6 +34,7 @@ import { BookingsService } from '../../services/bookings.service';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatFormFieldModule,
+    MatButtonModule,
   ],
   providers: [
     provideNativeDateAdapter(),
@@ -46,6 +49,9 @@ export class BookRoomComponent implements OnInit {
   room$: Observable<Room | null> = new Observable<Room | null>();
   selectedGuestType = signal<'existing' | 'new'>('existing');
 
+  guestControl = new FormControl('', Validators.required);
+  roomId = '';
+
   bookingForm = new FormGroup({
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
@@ -59,14 +65,31 @@ export class BookRoomComponent implements OnInit {
 
   ngOnInit() {
     this.room$ = this.activatedRoute.params.pipe(
+      tap((params) => (this.roomId = params['id'])),
       switchMap((params) => this.roomService.getRoom(params['id'])),
       catchError(() => {
         return of(null);
       })
     );
+
+    this.guestControl.valueChanges.subscribe((value) => console.log(value));
   }
 
   onSubmit() {
-    console.log('submitting...');
+    console.log('form value', this.bookingForm.value);
+
+    console.log('submitting...', {
+      ...this.bookingForm.value,
+      roomId: this.roomId,
+      // guestId: this.guestId,
+    } as CreateBooking);
+
+    this.bookingsService
+      .createBooking({
+        ...this.bookingForm.value,
+        roomId: this.roomId,
+        // guestId: this.guestId,
+      } as CreateBooking)
+      .subscribe((response) => console.log(response));
   }
 }
