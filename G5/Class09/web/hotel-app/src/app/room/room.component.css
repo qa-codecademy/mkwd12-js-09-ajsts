@@ -1,0 +1,13 @@
+.roomCard {
+  min-height: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.roomTitle {
+  color: #00dddd;
+}
+
+.roomDescripton {
+  color: #fff;
+}
