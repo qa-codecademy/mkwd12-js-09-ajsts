@@ -17,7 +17,7 @@
     @if(selectedGuestType() === 'existing') {
     <app-select-guest [guestControl]="guestControl" />
     } @else {
-    <app-add-guest />
+    <app-add-guest [guestForm]="guestForm" />
     }
   </div>
 

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CreateGuest, Guest } from '../types/guest.interface';
 import { Response } from '../types/response.interface';
+import { SearchGuestQuery } from '../types/search-guest-query.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,12 @@ export class GuestsService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getGuests(): Observable<Response<Guest[]>> {
-    return this.http.get<Response<Guest[]>>(this.guestsPath);
+  getGuests(searchQuery: SearchGuestQuery = {}): Observable<Response<Guest[]>> {
+    return this.http.get<Response<Guest[]>>(this.guestsPath, {
+      params: {
+        ...searchQuery,
+      },
+    });
   }
 
   addGuest(guest: CreateGuest): Observable<Guest> {

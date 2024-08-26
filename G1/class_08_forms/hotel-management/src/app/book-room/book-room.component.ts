@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, signal } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AddGuestComponent } from '../add-guest/add-guest.component';
@@ -22,6 +22,8 @@ import {
 import { BookingsService } from '../../services/bookings.service';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateBooking } from '../../types/booking.interface';
+import { CreateGuest, Guest } from '../../types/guest.interface';
+import { GuestsService } from '../../services/guests.service';
 
 @Component({
   selector: 'app-book-room',
@@ -49,7 +51,7 @@ export class BookRoomComponent implements OnInit {
   room$: Observable<Room | null> = new Observable<Room | null>();
   selectedGuestType = signal<'existing' | 'new'>('existing');
 
-  guestControl = new FormControl('', Validators.required);
+  guestControl = new FormControl<Guest | null>(null, Validators.required);
   roomId = '';
 
   bookingForm = new FormGroup({
@@ -57,10 +59,36 @@ export class BookRoomComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
   });
 
+  guestForm = new FormGroup({
+    firstName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(20),
+    ]),
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(50),
+    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    dateOfBirth: new FormControl('', [Validators.required]),
+    phone: new FormControl('', [Validators.required]),
+    address: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(100),
+    ]),
+    passportNumber: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(20),
+    ]),
+  });
+
   constructor(
     private roomService: RoomsService,
     private activatedRoute: ActivatedRoute,
-    private bookingsService: BookingsService
+    private bookingsService: BookingsService,
+    private router: Router,
+    private guestService: GuestsService
   ) {}
 
   ngOnInit() {
@@ -71,25 +99,57 @@ export class BookRoomComponent implements OnInit {
         return of(null);
       })
     );
-
-    this.guestControl.valueChanges.subscribe((value) => console.log(value));
   }
 
   onSubmit() {
-    console.log('form value', this.bookingForm.value);
+    console.log(this.guestForm);
+    if (this.selectedGuestType() === 'new') {
+      this.guestForm.markAllAsTouched();
 
-    console.log('submitting...', {
-      ...this.bookingForm.value,
-      roomId: this.roomId,
-      // guestId: this.guestId,
-    } as CreateBooking);
+      if (this.guestForm.invalid) {
+        alert('Missing guest info');
+        return;
+      }
 
-    this.bookingsService
-      .createBooking({
-        ...this.bookingForm.value,
-        roomId: this.roomId,
-        // guestId: this.guestId,
-      } as CreateBooking)
-      .subscribe((response) => console.log(response));
+      this.guestService
+        .addGuest(this.guestForm.value as CreateGuest)
+        .pipe(
+          switchMap((guest) => {
+            return this.bookingsService.createBooking({
+              ...this.bookingForm.value,
+              roomId: this.roomId,
+              guestId: guest.id,
+            } as CreateBooking);
+          })
+        )
+        .subscribe((createdBooking) => {
+          if (!createdBooking) {
+            return;
+          }
+          this.router.navigate(['/']);
+        });
+    }
+
+    if (this.selectedGuestType() === 'existing') {
+      console.log(this.guestControl);
+      if (this.guestControl.invalid) {
+        alert('You must select one guest');
+        return;
+      }
+
+      this.bookingsService
+        .createBooking({
+          ...this.bookingForm.value,
+          roomId: this.roomId,
+          guestId: this.guestControl.value?.id,
+        } as CreateBooking)
+        .subscribe((response) => {
+          if (!response) {
+            return;
+          }
+
+          this.router.navigate(['/']);
+        });
+    }
   }
 }
