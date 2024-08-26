@@ -35,6 +35,8 @@ export class GuestsService {
   async findAll(searchQueryDto: SearchQueryDto): Promise<Response<Guest[]>> {
     const { email, name } = searchQueryDto;
 
+    console.log(name);
+
     const query = this.guestRepository
       .createQueryBuilder('guests')
       .leftJoinAndSelect('guests.bookings', 'bookings');
@@ -44,10 +46,10 @@ export class GuestsService {
     }
 
     if (name) {
-      query.andWhere('guests.firstName ILIKE :name', {
+      query.orWhere('guests.firstName ILIKE :name', {
         name: `%${name}%`,
       });
-      query.andWhere('guests.lastName ILIKE :name', {
+      query.orWhere('guests.lastName ILIKE :name', {
         name: `%${name}%`,
       });
     }

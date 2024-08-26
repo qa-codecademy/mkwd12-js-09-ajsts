@@ -6,7 +6,7 @@ import { CreateBooking } from '../types/booking.interface';
   providedIn: 'root',
 })
 export class BookingsService {
-  bookingsPath = `http://localhost:3000/api/bookings`;
+  private bookingsPath = `http://localhost:3000/api/bookings`;
 
   constructor(private readonly http: HttpClient) {}
 

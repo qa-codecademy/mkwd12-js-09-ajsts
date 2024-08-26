@@ -1,4 +1,4 @@
-<form [formGroup]="guestForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="guestForm()">
   <h3>Add Guest</h3>
   <div class="form-container">
     <mat-form-field>
@@ -75,6 +75,4 @@
       <mat-error>{{ passportNumberErrors }}</mat-error>
     </mat-form-field>
   </div>
-
-  <button type="submit">Add Guest</button>
 </form>

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, input, OnDestroy, OnInit } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -14,7 +14,7 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { GuestsService } from '../../services/guests.service';
 import { CreateGuest } from '../../types/guest.interface';
-import { Subscription } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -34,30 +34,19 @@ import { Router } from '@angular/router';
   templateUrl: './add-guest.component.html',
   styleUrl: './add-guest.component.css',
 })
-export class AddGuestComponent implements OnInit, OnDestroy {
-  guestForm = new FormGroup({
-    firstName: new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(20),
-    ]),
-    lastName: new FormControl('', [
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(50),
-    ]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    dateOfBirth: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required]),
-    address: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(100),
-    ]),
-    passportNumber: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(20),
-    ]),
-  });
+export class AddGuestComponent implements OnDestroy {
+  guestForm = input<FormGroup>(
+    new FormGroup({
+      firstName: new FormControl(''),
+      lastName: new FormControl(''),
+      email: new FormControl(''),
+      dateOfBirth: new FormControl(''),
+      phone: new FormControl(''),
+      address: new FormControl(''),
+      passportNumber: new FormControl(''),
+    })
+  );
+
   subscription: Subscription = new Subscription();
 
   constructor(
@@ -69,19 +58,19 @@ export class AddGuestComponent implements OnInit, OnDestroy {
     // first if as example of handling proper state for validation:
     // form control MUST be invalid AND (either touched OR dirty)
     // if (
-    //   this.guestForm.get('firstName')?.invalid &&
-    //   (this.guestForm.get('firstName')?.touched ||
-    //     this.guestForm.get('firstName')?.dirty)
+    //   this.guestForm().get('firstName')?.invalid &&
+    //   (this.guestForm().get('firstName')?.touched ||
+    //     this.guestForm().get('firstName')?.dirty)
     // ) {
-    if (this.guestForm.get('firstName')?.errors?.['required']) {
+    if (this.guestForm().get('firstName')?.errors?.['required']) {
       return 'First Name is required';
     }
 
-    if (this.guestForm.get('firstName')?.errors?.['minlength']) {
+    if (this.guestForm().get('firstName')?.errors?.['minlength']) {
       return 'First Name must have at least 3 characters';
     }
 
-    if (this.guestForm.get('firstName')?.errors?.['maxlength']) {
+    if (this.guestForm().get('firstName')?.errors?.['maxlength']) {
       return 'First Name must be at most 20 characters long';
     }
     // }
@@ -90,15 +79,15 @@ export class AddGuestComponent implements OnInit, OnDestroy {
   }
 
   get lastNameErrors(): string {
-    if (this.guestForm.get('lastName')?.errors?.['required']) {
+    if (this.guestForm().get('lastName')?.errors?.['required']) {
       return 'Last Name is required';
     }
 
-    if (this.guestForm.get('lastName')?.errors?.['minlength']) {
+    if (this.guestForm().get('lastName')?.errors?.['minlength']) {
       return 'Last Name must have at least 3 characters';
     }
 
-    if (this.guestForm.get('lastName')?.errors?.['maxlength']) {
+    if (this.guestForm().get('lastName')?.errors?.['maxlength']) {
       return 'Last Name must be at most 50 characters long';
     }
 
@@ -106,11 +95,11 @@ export class AddGuestComponent implements OnInit, OnDestroy {
   }
 
   get emailErrors(): string {
-    if (this.guestForm.get('email')?.errors?.['required']) {
+    if (this.guestForm().get('email')?.errors?.['required']) {
       return 'Email is required';
     }
 
-    if (this.guestForm.get('email')?.errors?.['email']) {
+    if (this.guestForm().get('email')?.errors?.['email']) {
       return 'Email must be in valid format';
     }
 
@@ -118,7 +107,7 @@ export class AddGuestComponent implements OnInit, OnDestroy {
   }
 
   get dateOfBirthErrors(): string {
-    if (this.guestForm.get('dateOfBirth')?.errors?.['required']) {
+    if (this.guestForm().get('dateOfBirth')?.errors?.['required']) {
       return 'Date of birth is required';
     }
 
@@ -126,7 +115,7 @@ export class AddGuestComponent implements OnInit, OnDestroy {
   }
 
   get phoneNumberErrors(): string {
-    if (this.guestForm.get('phone')?.errors?.['required']) {
+    if (this.guestForm().get('phone')?.errors?.['required']) {
       return 'Phone number is required';
     }
 
@@ -134,11 +123,11 @@ export class AddGuestComponent implements OnInit, OnDestroy {
   }
 
   get addressErrors(): string {
-    if (this.guestForm.get('address')?.errors?.['required']) {
+    if (this.guestForm().get('address')?.errors?.['required']) {
       return 'Address is required';
     }
 
-    if (this.guestForm.get('address')?.errors?.['maxlength']) {
+    if (this.guestForm().get('address')?.errors?.['maxlength']) {
       return 'Address must be at most 100 characters long';
     }
 
@@ -146,31 +135,15 @@ export class AddGuestComponent implements OnInit, OnDestroy {
   }
 
   get passportNumberErrors(): string {
-    if (this.guestForm.get('passportNumber')?.errors?.['required']) {
+    if (this.guestForm().get('passportNumber')?.errors?.['required']) {
       return 'Passport number is required';
     }
 
-    if (this.guestForm.get('passportNumber')?.errors?.['maxlength']) {
+    if (this.guestForm().get('passportNumber')?.errors?.['maxlength']) {
       return 'Passport number must be at most 20 characters long';
     }
 
     return '';
-  }
-
-  ngOnInit(): void {
-    // this.guestForm.valueChanges.subscribe((value) => console.log(value));
-  }
-
-  onSubmit() {
-    if (this.guestForm.invalid) {
-      alert('Form is not valid');
-      return;
-    }
-    console.log('Submitting...', this.guestForm.value);
-
-    this.subscription = this.guestsService
-      .addGuest(this.guestForm.value as CreateGuest)
-      .subscribe(() => this.router.navigate(['/rooms']));
   }
 
   ngOnDestroy(): void {
