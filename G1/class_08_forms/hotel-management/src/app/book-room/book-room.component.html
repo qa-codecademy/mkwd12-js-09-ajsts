@@ -20,4 +20,27 @@
     <app-add-guest />
     }
   </div>
+
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Select booking dates</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          placeholder="Start Date"
+          formControlName="startDate"
+        />
+        <input matEndDate placeholder="End Date" formControlName="endDate" />
+      </mat-date-range-input>
+      <mat-hint>DD/MM/YYYY - DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker" />
+      <mat-date-range-picker #picker />
+    </mat-form-field>
+
+    <div>
+      <button mat-flat-button color="primary" type="submit">
+        Create Booking
+      </button>
+    </div>
+  </form>
 </div>
