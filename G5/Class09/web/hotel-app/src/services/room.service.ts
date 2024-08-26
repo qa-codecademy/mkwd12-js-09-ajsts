@@ -9,12 +9,13 @@ import { Response } from '../types/response.interface';
 @Injectable({
   providedIn: 'root',
 })
-export class RoomsService {
+export class RoomService {
   private roomPath = `${environment.apiURL}/rooms`;
 
   constructor(private readonly http: HttpClient) {}
 
   // This is same as adding Partial because Partial converts all properties to optional
+  // getRooms(searchQuery: Partial<SearchRoomQuery> = {}): Observable<Response<Room[]>> { // Partial makes all properties optional
   getRooms(searchQuery: SearchRoomQuery = {}): Observable<Response<Room[]>> {
     return this.http.get<Response<Room[]>>(this.roomPath, {
       params: {

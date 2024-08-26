@@ -1,59 +1,20 @@
-<mat-card class="roomCard" appearance="outlined">
+<mat-card class="card">
   <mat-card-header>
-    <mat-card-title class="roomTitle">{{ room().name }}</mat-card-title>
-    <mat-card-subtitle
-      >{{ room().type }} {{ room().pricePerNight | currency }}/per night
+    <mat-card-title>{{ room()?.name }}</mat-card-title>
+    <mat-card-subtitle>
+      {{ room()?.type }} | {{ room()?.pricePerNight | currency }}/night
     </mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="room().images[0]" [alt]="room().name" />
+  <div class="card-image">
+    <img
+    mat-card-image
+    [src]="room()?.images?.[0]"
+    [alt]="room()?.name"
+    height="auto"
+    width="100%"
+    >
+  </div>
   <mat-card-content>
-    <p class="roomDescripton">
-      {{ room().description }}
-    </p>
+    <p>{{ room()?.description }}</p>
   </mat-card-content>
-
-  <!-- ACCORDION START -->
-  <mat-accordion>
-    <mat-expansion-panel (opened)="openPanel(true)" (closed)="openPanel(false)">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{ panelOpenState() ? "Hide" : "Show" }}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div>
-        <mat-icon
-          aria-label="bed count"
-          aria-hidden="false"
-          [matBadge]="room().beds"
-          >bed</mat-icon
-        >
-        <mat-icon
-          aria-label="bath count"
-          aria-hidden="false"
-          [matBadge]="room().baths"
-          >shower</mat-icon
-        >
-        <mat-icon
-          aria-label="guest count"
-          aria-hidden="false"
-          [matBadge]="room().guestCapacity"
-          >person</mat-icon
-        >
-
-        @if (room().isPetFriendly) {
-        <mat-icon
-          aria-label="pet friendly"
-          aria-hidden="false"
-          matTooltip="Room is pet friendly"
-          >pets</mat-icon
-        >
-        }
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <!-- ACCORDION END -->
-  <mat-card-actions>
-    <button mat-button>DETAILS</button>
-    <button mat-button>SHARE</button>
-  </mat-card-actions>
 </mat-card>
