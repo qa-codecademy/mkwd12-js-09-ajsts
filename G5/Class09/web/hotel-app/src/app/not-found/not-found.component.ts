@@ -11,6 +11,6 @@ import { RouterModule } from '@angular/router';
 export class NotFoundComponent {
 
   constructor() {
-    console.log('Guests component loaded');
+    console.log('Not found component loaded');
   }
 }
