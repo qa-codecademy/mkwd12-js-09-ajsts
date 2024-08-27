@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Room } from '../../types/room.interface';
 import { RoomComponent } from '../room/room.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -15,7 +15,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
   styleUrl: './rooms.component.css',
 })
 export class RoomsComponent {
-  rooms = input<Room[]>([]);
+  // Rooms data is being sent from the parent component (home)
+  // In the parent component its type is Observable<Room[]>()
+  // But since we are sending the data to the child through async pipe, when we get it in the child, it is no more observable, but Room[]
+  rooms = input<Room[]>([]); 
   breakpoint: number = 0;
 
   ngOnInit() {
