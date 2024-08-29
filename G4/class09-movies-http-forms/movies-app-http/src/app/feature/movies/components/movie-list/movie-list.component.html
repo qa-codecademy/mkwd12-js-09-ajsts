@@ -1,0 +1,18 @@
+<section class="container">
+  <div class="movies-heading">
+    <h2>Reviews</h2>
+    <p>
+      Total👍: <strong>{{ totalLikes() }}</strong>
+    </p>
+  </div>
+
+  <div class="list-content">
+    <ul>
+      @for(movie of movies(); track movie.id) {
+      <li (click)="onMovieSelect(movie)">
+        <app-movie-item [movie]="movie" />
+      </li>
+      }
+    </ul>
+  </div>
+</section>

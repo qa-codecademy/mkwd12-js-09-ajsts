@@ -17,7 +17,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  showTemplateForm = signal(true);
+  showTemplateForm = signal(false);
 
   toggleForm() {
     this.showTemplateForm.update((prevValue) => !prevValue);

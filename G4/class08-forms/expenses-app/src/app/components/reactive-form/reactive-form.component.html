@@ -1,1 +1,119 @@
-<p>reactive-form works!</p>
+<form [formGroup]="expensesForm" (ngSubmit)="onFormSubmit()">
+  <div class="basic-data" formGroupName="basicData">
+    <div class="form-group">
+      <label for="expense-title">Title</label>
+      <input
+        formControlName="title"
+        class="form-control"
+        type="text"
+        id="expense-title"
+        name="expenseTitle"
+        autocomplete="off"
+      />
+    </div>
+    @if(expensesForm.get("basicData.title")?.touched) {
+    <p
+      *ngIf="expensesForm.get('basicData.title')?.errors?.required"
+      class="help-block"
+    >
+      Title is required
+    </p>
+    <p
+      *ngIf="expensesForm.get('basicData.title')?.errors?.wordIsBlocked"
+      class="help-block"
+    >
+      Please slow down with the french
+    </p>
+    }
+
+    <div class="form-group">
+      <label for="expense-amount">Amount</label>
+      <input
+        formControlName="amount"
+        class="form-control"
+        type="number"
+        id="expense-amount"
+        name="expenseAmount"
+        autocomplete="off"
+        placeholder="1-500"
+      />
+    </div>
+    @if(basicDataCtrls.amount.touched) {
+    <p class="help-block" *ngIf="basicDataCtrls.amount.errors?.required">
+      Amount is required
+    </p>
+    <p
+      class="help-block"
+      *ngIf="
+        basicDataCtrls.amount.errors?.min || basicDataCtrls.amount.errors?.max
+      "
+    >
+      Amount must be between 1 and 500
+    </p>
+    }
+    <div class="form-group">
+      <label for="expense-date">Date</label>
+      <input
+        formControlName="date"
+        class="form-control"
+        type="date"
+        id="expense-date"
+        name="expenseDate"
+        autocomplete="off"
+      />
+    </div>
+    <p
+      *ngIf="basicDataCtrls.date.invalid && basicDataCtrls.date.touched"
+      class="help-block"
+    >
+      Date is required
+    </p>
+  </div>
+  <div class="form-group">
+    <label for="expense-priority">Priority</label>
+    <select
+      formControlName="priority"
+      name="expensePriority"
+      id="expense-priority"
+      class="form-control"
+    >
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="expense-comment">Comment</label>
+    <textarea
+      name="expenseComment"
+      id="expense-comment"
+      rows="3"
+      cols="30"
+      formControlName="comment"
+    ></textarea>
+    <p>
+      {{ expensesForm.controls.comment.value?.length }}/{{ maxCommentLength }}
+    </p>
+  </div>
+  <div class="form-group">
+    @for(type of paymentTypes; track type) {
+    <div>
+      <input
+        [id]="type + '-radio'"
+        formControlName="type"
+        name="type"
+        [value]="type"
+        type="radio"
+      />
+      <label [htmlFor]="type + '-radio'">{{ type | titlecase }}</label>
+    </div>
+    }
+  </div>
+
+  <button [disabled]="expensesForm.invalid" type="submit" class="btn">
+    Submit
+  </button>
+  <button type="button" class="btn" (click)="populateForm()">
+    Load Form With Data
+  </button>
+</form>
