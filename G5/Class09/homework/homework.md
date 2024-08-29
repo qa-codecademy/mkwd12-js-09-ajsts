@@ -2,9 +2,9 @@
 ## START THE SERVER
 - Create .env file (check the .env-example)
  -Create an empty database - car_dealership
-- Comment guards in both cars and users contollers
 - Create admin user - find below the interface for a user
 - Send post request to: http://localhost:3000/api/cars/backfill to fill the DB with data
+#### Note: The guards are already commented out so that you can use the server without authorization.
 
 ## HOMEWORK REQUIREMENTS
 - Create a new angular app (we will be using the previous car dealership app as an isnpiration for the new one, but we will implement few changes)
