@@ -1,1 +1,14 @@
-<p>operators works!</p>
+@let usernames = usernamesOfObs$ | async;
+<section class="container">
+  <h2>Operators</h2>
+  <ul>
+    @for(username of usernames; track username) {
+    <li>{{ username }}</li>
+    }
+  </ul>
+  <ul>
+    @for(username of usernamesSignal(); track username) {
+    <li>{{ username }}</li>
+    }
+  </ul>
+</section>

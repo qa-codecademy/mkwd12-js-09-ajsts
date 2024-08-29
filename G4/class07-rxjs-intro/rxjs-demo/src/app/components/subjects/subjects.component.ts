@@ -1,7 +1,15 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { RxjsService } from '../../services/rxjs.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-subjects',
@@ -10,8 +18,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './subjects.component.html',
   styleUrl: './subjects.component.scss',
 })
-export class SubjectsComponent {
+export class SubjectsComponent implements OnInit, OnDestroy {
   private rxjsService = inject(RxjsService);
+  private destroyRef = inject(DestroyRef);
 
   fruitsSubject$ = this.rxjsService.fruitsSubject$;
 
@@ -20,13 +29,29 @@ export class SubjectsComponent {
   nameValue: string;
   fruitValue: string;
 
+  unsubscribe$ = new Subject();
+
   ngOnInit() {
-    this.rxjsService.nameSubject$.subscribe((value) => {
-      console.log(value);
-      this.nameArray = value;
-    });
+    this.rxjsService.nameSubject$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        console.log(value);
+        this.nameArray = value;
+      });
+
+    this.rxjsService.nameSubject$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((value) => {
+        console.log(value);
+        this.nameArray = value;
+      });
 
     this.rxjsService.getNames();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(null);
+    this.unsubscribe$.complete();
   }
 
   onAddNameClick() {
