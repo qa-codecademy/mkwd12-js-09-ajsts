@@ -1,10 +1,18 @@
-import { computed, Injectable, signal } from '@angular/core';
-import { Movie } from '../../feature/movies/models/movie.model';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import {
+  Movie,
+  ReviewFormValue,
+} from '../../feature/movies/models/movie.model';
+import { MoviesApiService } from './movies-api.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
+  private apiService = inject(MoviesApiService);
+  private router = inject(Router);
+
   movies = signal<Movie[]>([]);
 
   //Computed runs when any of the signals referenced inside changes its value
@@ -15,26 +23,44 @@ export class MoviesService {
   selectedMovie = signal<Movie>(null);
 
   getMovies(orderBy: string) {
-    let url = `http://localhost:3000/movies`;
-
-    if (orderBy) {
-      url = `http://localhost:3000/movies?orderBy=${orderBy}`;
-    }
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data: Movie[]) => this.movies.set(data))
-      .catch((err) => console.log(err));
+    // fetch(url)
+    //   .then((res) => res.json())
+    //   .then((data: Movie[]) => this.movies.set(data))
+    //   .catch((err) => console.log(err));
+    this.apiService.fetchMovies(orderBy).subscribe({
+      next: (value) => this.movies.set(value),
+      error: (err) => console.log(err),
+    });
   }
 
   getMovieById(id: number) {
     //We check if selected movie has a value to avoid unnecessary calls to the endpoint , it will only be called when refreshing the page
     if (this.selectedMovie()) return;
 
-    fetch(`http://localhost:3000/movies/${id}`)
-      .then((res) => res.json())
-      .then((data: Movie) => this.selectedMovie.set(data))
-      .catch((err) => console.log(err));
+    this.apiService.fetchMovieById(id).subscribe({
+      next: (value) => this.selectedMovie.set(value),
+      error: (err) => console.log(err),
+    });
+  }
+
+  createMovie(addReviewReq: ReviewFormValue) {
+    this.apiService.postMovie(addReviewReq).subscribe({
+      next: (newMovie) => {
+        this.movieSelect(newMovie);
+        this.router.navigate(['details', newMovie.id]);
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
+  updateMovie(id: number, updateReviewReq: Partial<ReviewFormValue>) {
+    this.apiService.patchMovie(id, updateReviewReq).subscribe({
+      next: (updatedMovie) => {
+        this.movieSelect(updatedMovie);
+        this.router.navigate(['details', updatedMovie.id]);
+      },
+      error: (err) => console.log(err),
+    });
   }
 
   movieSelect(movie: Movie) {

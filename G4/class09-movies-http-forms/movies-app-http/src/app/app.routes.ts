@@ -3,6 +3,7 @@ import { HomeComponent } from './feature/home/home.component';
 import { AboutComponent } from './feature/about/about.component';
 import { AddMovieComponent } from './feature/movies/components/add-movie/add-movie.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { EditMovieComponent } from './feature/movies/components/edit-movie/edit-movie.component';
 
 export const routes: Routes = [
   {
@@ -39,6 +40,10 @@ export const routes: Routes = [
   {
     path: 'add-movie',
     component: AddMovieComponent,
+  },
+  {
+    path: 'edit-movie/:id',
+    component: EditMovieComponent,
   },
   {
     path: '**',

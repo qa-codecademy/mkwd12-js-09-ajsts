@@ -9,7 +9,7 @@ import { Component, input, output } from '@angular/core';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-  text = input.required<string>();
+  text = input<string>();
   btnClick = output();
   style = input<{ [key: string]: string }>({});
   disabled = input(false);

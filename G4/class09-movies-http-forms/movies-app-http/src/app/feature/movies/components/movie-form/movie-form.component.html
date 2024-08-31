@@ -7,6 +7,9 @@
     <label>Year</label>
     <input type="number" class="form-input" formControlName="year" />
   </div>
+  <p *ngIf="reviewForm.controls.year.errors?.min" class="control-error">
+    Year must be above 1850
+  </p>
   <div class="form-group">
     <label>Director</label>
     <input type="text" class="form-input" formControlName="director" />
@@ -41,5 +44,13 @@
     <label>Author</label>
     <input class="form-input" type="text" formControlName="author" />
   </div>
-  <button type="submit" class="btn">Submit</button>
+  <div
+    *ngIf="movieSubmitted() && reviewForm.invalid && reviewForm.touched"
+    class="form-error"
+  >
+    All fields are required
+  </div>
+  <div class="form-controls">
+    <app-button [text]="editReviewData() ? 'UPDATE' : 'ADD'" type="submit" />
+  </div>
 </form>

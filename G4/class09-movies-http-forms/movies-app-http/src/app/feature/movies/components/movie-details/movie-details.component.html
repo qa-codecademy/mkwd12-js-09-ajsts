@@ -19,16 +19,19 @@
       <em>{{ selectedMovie().author }}</em>
     </p>
     <div class="details-controls">
+      <app-button text="Edit" (btnClick)="goToEditMovie()" />
       <app-button
-        text="👍"
         (btnClick)="onClickLikeDislike('LIKE')"
-        [style]="{ backgroundColor: 'lightgreen', fontSize: '24px' }"
-      />
+        [style]="{ minWidth: '50px' }"
+      >
+        <i class="fa-regular fa-thumbs-up"></i>
+      </app-button>
       <app-button
-        text="👎"
         (btnClick)="onClickLikeDislike('DISLIKE')"
-        [style]="{ backgroundColor: 'lightpink', fontSize: '24px' }"
-      />
+        [style]="{ minWidth: '50px' }"
+      >
+        <i class="fa-regular fa-thumbs-down"></i>
+      </app-button>
     </div>
   </div>
   } @else {

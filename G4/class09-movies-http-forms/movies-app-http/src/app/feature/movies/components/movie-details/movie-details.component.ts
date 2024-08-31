@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { LoggerService } from '../../../../core/services/logger.service';
 import { MoviesService } from '../../../../core/services/movies.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-details',
@@ -16,6 +16,7 @@ export class MovieDetailsComponent {
   private moviesService = inject(MoviesService);
   //ActivatedRoute contains all the information about the route that led to the rendering of this component such as: url, params, queryParams etc.
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   //This is a reference to the property in the service not a new object/signal
   selectedMovie = this.moviesService.selectedMovie;
@@ -33,5 +34,9 @@ export class MovieDetailsComponent {
     console.log('like/dislike method called');
 
     this.moviesService.addLikeDislike(type, this.selectedMovie().id);
+  }
+
+  goToEditMovie() {
+    this.router.navigate(['edit-movie', this.selectedMovie().id]);
   }
 }

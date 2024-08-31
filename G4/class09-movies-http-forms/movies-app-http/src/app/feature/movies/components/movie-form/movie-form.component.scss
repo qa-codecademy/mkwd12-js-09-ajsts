@@ -1,26 +1,68 @@
 form {
-  padding: 15px;
-  border: 1.5px solid #090c08;
-  margin: 20px 0px;
+  background-color: #e6ecde;
+  padding: 30px 30px;
   border-radius: 4px;
 
   width: fit-content;
-
   .form-group {
     width: 100%;
     font-size: 1.3rem;
     display: flex;
     flex-direction: column;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 
     textarea {
       resize: none;
     }
 
+    label {
+      font-size: 1.3rem;
+      padding-left: 10px;
+    }
+
+    input {
+      border: 2px solid transparent;
+    }
+
+    textarea {
+      border: 2px solid transparent;
+    }
+
+    input.ng-touched.ng-invalid {
+      border: 2px solid rgb(203, 0, 0);
+    }
+
+    textarea.ng-touched.ng-invalid {
+      border: 2px solid rgb(203, 0, 0);
+    }
+
     .form-input {
       font-family: "Nunito", sans-serif;
       font-size: 1.3rem;
+      border-radius: 4px;
+      margin: 5px 0px;
+      padding: 10px;
+      border: none;
+      box-shadow: 0 10px 20px #d0d3ca, 0 6px 6px #d0d3ca;
     }
+  }
+
+  .control-error {
+    margin: 0;
+    padding-bottom: 10px;
+    color: rgb(203, 0, 0);
+  }
+
+  .form-controls {
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-error {
+    text-align: center;
+    color: rgb(203, 0, 0);
+    font-size: 20px;
+    padding-bottom: 20px;
   }
 }
 

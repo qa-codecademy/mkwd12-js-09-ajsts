@@ -4,9 +4,12 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: 0.3s;
-  border: 1px solid darkgray;
+  box-shadow: 0 10px 20px #d0d3ca, 0 6px 6px #d0d3ca;
+  border: none;
+  min-width: 150px;
+  background: white;
 
   &:hover {
-    background-color: rgb(77, 168, 205);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
 }

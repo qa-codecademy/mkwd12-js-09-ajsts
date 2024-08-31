@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MovieFormComponent } from '../movie-form/movie-form.component';
+import { ReviewFormValue } from '../../models/movie.model';
+import { MoviesService } from '../../../../core/services/movies.service';
 
 @Component({
   selector: 'app-add-movie',
@@ -8,4 +10,11 @@ import { MovieFormComponent } from '../movie-form/movie-form.component';
   templateUrl: './add-movie.component.html',
   styleUrl: './add-movie.component.scss',
 })
-export class AddMovieComponent {}
+export class AddMovieComponent {
+  private movieService = inject(MoviesService);
+
+  onAddMovie(value: ReviewFormValue) {
+    console.log('Add submit', value);
+    this.movieService.createMovie(value);
+  }
+}
