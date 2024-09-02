@@ -24,6 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CreateBooking } from '../../types/booking.interface';
 import { CreateGuest, Guest } from '../../types/guest.interface';
 import { GuestsService } from '../../services/guests.service';
+import { NotificationService } from '../../services/notifications.service';
+import { NotificationType } from '../../types/notification-type.enum';
 
 @Component({
   selector: 'app-book-room',
@@ -43,6 +45,7 @@ import { GuestsService } from '../../services/guests.service';
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
     BookingsService,
     RoomsService,
+    NotificationService,
   ],
   templateUrl: './book-room.component.html',
   styleUrl: './book-room.component.css',
@@ -88,7 +91,8 @@ export class BookRoomComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private bookingsService: BookingsService,
     private router: Router,
-    private guestService: GuestsService
+    private guestService: GuestsService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -102,12 +106,15 @@ export class BookRoomComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.guestForm);
     if (this.selectedGuestType() === 'new') {
       this.guestForm.markAllAsTouched();
 
       if (this.guestForm.invalid) {
-        alert('Missing guest info');
+        this.notificationService.showNotification(
+          'Missing guest info',
+          'Dismiss',
+          NotificationType.Error
+        );
         return;
       }
 
@@ -126,14 +133,21 @@ export class BookRoomComponent implements OnInit {
           if (!createdBooking) {
             return;
           }
+
+          this.notificationService.showNotification(
+            `You have successfully booked this room.`
+          );
           this.router.navigate(['/']);
         });
     }
 
     if (this.selectedGuestType() === 'existing') {
-      console.log(this.guestControl);
       if (this.guestControl.invalid) {
-        alert('You must select one guest');
+        this.notificationService.showNotification(
+          'You must select a guest',
+          'Dismiss',
+          NotificationType.Error
+        );
         return;
       }
 
@@ -143,13 +157,55 @@ export class BookRoomComponent implements OnInit {
           roomId: this.roomId,
           guestId: this.guestControl.value?.id,
         } as CreateBooking)
-        .subscribe((response) => {
-          if (!response) {
-            return;
+        .subscribe(
+          {
+            next: () => {
+              this.notificationService.showNotification(
+                'You have successfully booked this room.'
+              );
+              this.router.navigate(['/']);
+            },
+            error: ({ error: { message } }) => {
+              this.notificationService.showNotification(
+                message,
+                'Dismiss',
+                NotificationType.Error
+              );
+            },
           }
+          // (response) => {
+          //   console.log('WHILE BOOKING', response);
+          //   if (!response) {
+          //     return;
+          //   }
 
-          this.router.navigate(['/']);
-        });
+          //   this.notificationService.showNotification(
+          //     'You have successfully booked this room.'
+          //   );
+          //   this.router.navigate(['/']);
+          // },
+          // (error) => {
+          //   console.log('WHILE BOOKING ERROR', error);
+          // }
+        );
     }
   }
 }
+
+// Using a second callback in subscribe to handle errors - OLD WAY - deprecated
+// .subscribe(
+//   (response) => {
+//     console.log('WHILE BOOKING', response);
+//     if (!response) {
+//       return;
+//     }
+
+//     this.notificationService.showNotification(
+//       'You have successfully booked this room.'
+//     );
+//     this.router.navigate(['/']);
+//   },
+//   (error) => {
+//     console.log('WHILE BOOKING ERROR', error);
+//   }
+// );
