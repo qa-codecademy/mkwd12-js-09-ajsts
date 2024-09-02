@@ -1,0 +1,12 @@
+<div>
+  <app-rooms [rooms]="(rooms | async) || []"></app-rooms>
+  <app-search></app-search>
+  
+  <mat-paginator
+  [length]="total()"
+  [pageSize]="pageSize()"
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  aria-label="Select page"
+  (page)="pageSize.set($event.pageSize); page.set($event.pageIndex)"
+   />
+</div>
