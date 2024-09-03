@@ -1,0 +1,13 @@
+<div>
+  <h2>Filters</h2>
+  <div class="filters-container">
+    @for (btnConfig of filterBtnsConfig; track btnConfig.status) {
+      <button
+        [ngClass]="btnConfig.status"
+        (click)="onChangeFilter(btnConfig.status)"
+      >
+        {{ btnConfig.text }}
+      </button>
+    }
+  </div>
+</div>

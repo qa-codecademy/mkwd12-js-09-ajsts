@@ -1,0 +1,15 @@
+<section>
+  <h2>Issues</h2>
+  <div class="issues-container">
+    @if (loading()) {
+      <h3>Loading...</h3>
+    } @else {
+      @for (issue of filteredIssues(); track issue.id) {
+        <app-issue-item
+          [issue]="issue"
+          (selectIdOutput)="onSelectIssue($event)"
+        />
+      }
+    }
+  </div>
+</section>

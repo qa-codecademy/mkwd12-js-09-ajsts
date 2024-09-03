@@ -1,0 +1,124 @@
+[
+  {
+    "id": "e4b7d869-d418-456d-b8d2-87eb3e7b98e2",
+    "description": "Fix bug in user authentication module",
+    "status": "in-progress",
+    "assignee": "Alice Johnson"
+  },
+  {
+    "id": "9a6f9b6e-0c8f-4d7b-9505-6e31979c1b63",
+    "description": "Optimize database query performance for user reports",
+    "status": "new",
+    "assignee": "Bob Smith"
+  },
+  {
+    "id": "98fb1a3f-4c9e-45c9-a5f5-14cccded93d0",
+    "description": "Implement unit tests for payment processing service",
+    "status": "on-hold",
+    "assignee": "Charlie Davis"
+  },
+  {
+    "id": "4a9a7b5f-44a8-4e0a-bf9d-3e742eb8e2b6",
+    "description": "Refactor the legacy code in the email notification system",
+    "status": "new",
+    "assignee": "Diana Martinez"
+  },
+  {
+    "id": "3e2a8f2d-bc63-40b1-bf84-7b38b2dbd38e",
+    "description": "Update API documentation to reflect recent changes",
+    "status": "completed",
+    "assignee": "Ethan Brown"
+  },
+  {
+    "id": "d0c836e1-7f34-43e9-9de4-2f24b540ca7b",
+    "description": "Resolve cross-browser compatibility issues in the dashboard",
+    "status": "in-progress",
+    "assignee": "Fiona Wilson"
+  },
+  {
+    "id": "bb0e9d8e-28da-42d5-96b3-8d7f99285a0e",
+    "description": "Add logging and monitoring to the microservices architecture",
+    "status": "new",
+    "assignee": "George Clark"
+  },
+  {
+    "id": "f3a6d3a2-04e8-41c5-8f4b-3c7e50918fb6",
+    "description": "Redesign the user profile page for better UX",
+    "status": "in-progress",
+    "assignee": "Hannah Lewis"
+  },
+
+  {
+    "id": "8b3c4d24-dba6-4f0b-949d-02c3b0a32f02",
+    "description": "Migrate the project from JavaScript to TypeScript",
+    "status": "on-hold",
+    "assignee": "Jasmine Hall"
+  },
+  {
+    "id": "a2e59d6d-b0a3-4777-80a5-5c2c7d4d8690",
+    "description": "Set up continuous integration and deployment pipeline",
+    "status": "new",
+    "assignee": "Ian Walker"
+  },
+  {
+    "id": "7f294130-2f13-4d22-b7b6-1f2437c3cbb5",
+    "description": "Improve error handling in the file upload module",
+    "status": "new",
+    "assignee": "Kyle Young"
+  },
+  {
+    "id": "d3c94e35-0834-43df-9395-c4e52ab27c8e",
+    "description": "Integrate third-party OAuth for single sign-on",
+    "status": "in-progress",
+    "assignee": "Laura King"
+  },
+  {
+    "id": "5e35e3f5-073f-4c4f-b0f3-8dcd46031bdf",
+    "description": "Develop a caching strategy for frequently accessed data",
+    "status": "new",
+    "assignee": "Michael Scott"
+  },
+  {
+    "id": "fd9f84b1-26f3-4418-b4f4-bc7f23365a9a",
+    "description": "Create RESTful API endpoints for mobile app integration",
+    "status": "in-progress",
+    "assignee": "Nina Perez"
+  },
+  {
+    "id": "c7a8c89e-62e8-4b71-9d93-87d2d8b90937",
+    "description": "Conduct security audit and fix vulnerabilities",
+    "status": "on-hold",
+    "assignee": "Oscar Lee"
+  },
+  {
+    "id": "2c86fa75-24d4-40e8-9559-9b509d2d70a2",
+    "description": "Design a microservice for handling user notifications",
+    "status": "new",
+    "assignee": "Paula Turner"
+  },
+  {
+    "id": "88bd5e0b-c5ef-4e6b-8d38-45e2ec7a1bca",
+    "description": "Upgrade to the latest version of the backend framework",
+    "status": "new",
+    "assignee": "Rachel Robinson"
+  },
+  {
+    "id": "8e7cba5e-d678-4115-99e5-66702924a80c",
+    "description": "Implement a retry mechanism for failed API requests",
+    "status": "completed",
+    "assignee": "Quentin Adams"
+  },
+
+  {
+    "id": "ae9a4b28-d7f3-487e-9f60-6073aeb24c2e",
+    "description": "Set up end-to-end testing using Cypress",
+    "status": "in-progress",
+    "assignee": "Steven Harris"
+  },
+  {
+    "id": "0bf8d0fe-67b8-4d4b-9b9d-2a1f0f3bc3da",
+    "description": "Optimize front-end code to reduce initial load time",
+    "status": "on-hold",
+    "assignee": "Tina White"
+  }
+]

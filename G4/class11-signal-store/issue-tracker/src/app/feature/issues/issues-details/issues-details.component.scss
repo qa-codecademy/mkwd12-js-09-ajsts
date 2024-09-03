@@ -1,0 +1,41 @@
+.issue-details {
+  font-size: 18px;
+  border-radius: 4px;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+  padding: 25px;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  min-height: 200px;
+
+  .details-status {
+    padding: 10px;
+    border-radius: 10px;
+    align-self: start;
+    justify-self: end;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .form-group {
+    align-self: end;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    select {
+      font-size: 18px;
+      width: 200px;
+      padding: 5px;
+      font-family: "Suse", sans-serif;
+    }
+  }
+
+  .details-assignee {
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    place-self: end;
+  }
+}
