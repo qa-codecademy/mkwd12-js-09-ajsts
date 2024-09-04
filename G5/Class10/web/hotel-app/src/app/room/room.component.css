@@ -7,6 +7,7 @@
 mat-card-title {
   font-size: 16px;
   font-weight: bold;
+  color: green;
 }
 
 mat-card-subtitle {
@@ -33,4 +34,9 @@ mat-card-content > p {
 .card-actions {
   gap: 5px;
   flex-wrap: wrap;
+}
+
+a {
+  text-decoration: none;
+  color: aqua;
 }
