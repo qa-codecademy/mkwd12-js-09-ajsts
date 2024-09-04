@@ -1,12 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { RoomService } from '../../services/room.service';
-import { Observable, finalize, map, tap } from 'rxjs';
+import { Observable, Subscription, finalize, map, tap } from 'rxjs';
 import { Room } from '../../types/room.interface';
 import { SearchRoomQuery } from '../../types/search-room-query.interface';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RoomsComponent } from '../rooms/rooms.component';
 import { AsyncPipe } from '@angular/common';
 import { SearchComponent } from '../search/search.component';
+import { RoomsStore } from '../../store/rooms.store';
+import { LoaderComponent } from '../loader/loader.component';
 
 
 @Component({
@@ -16,36 +18,48 @@ import { SearchComponent } from '../search/search.component';
     RoomsComponent,
     MatPaginatorModule,
     AsyncPipe,
-    SearchComponent
+    SearchComponent,
+    LoaderComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
-  rooms: Observable<Room[]> = new Observable<Room[]>();
-
-  isLoading = signal<boolean>(true);
-
-  total = signal(0);
-  pageSize = signal(0);
-  page = signal(0);
+  readonly roomsStore = inject(RoomsStore);
+  subscription: Subscription = new Subscription();
 
   constructor(
     private readonly roomService: RoomService
-  ){};
+  ){
+    effect(() => {
+      this.roomsStore.setLoading(true);
+      this.getRooms(this.roomsStore.searchParams());
+    },
+      // We use this flag when we want to write or modify signal values as part of its execution.
+      // It allows updates to signals during the effect's execution
+    {
+      allowSignalWrites: true,
+    }
+  )
+  };
 
   ngOnInit() {
     console.log('Home component loaded');
     this.getRooms();
   }
 
-  getRooms(searchQuery: SearchRoomQuery = {}) {
-    this.rooms = this.roomService.getRooms(searchQuery).pipe(
-      tap((response) => this.total.set(response.total)),
-      map((response) => response.payload),
-      finalize(() => this.isLoading.set(false))
-    )
+  getRooms(serchParams: SearchRoomQuery = {}) {
+    this.subscription = this.roomService
+      .getRooms(serchParams)
+      .subscribe((response) => {
+        this.roomsStore.setTotal(response.total);
+        this.roomsStore.setRooms(response.payload);
+        this.roomsStore.setLoading(false);
+      })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
