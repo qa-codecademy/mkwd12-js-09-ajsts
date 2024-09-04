@@ -1,12 +1,19 @@
 <div>
-  <app-rooms [rooms]="(rooms | async) || []"></app-rooms>
-  <app-search></app-search>
+  <app-search
+  [searchTerm]="roomsStore.searchTerm()"
+  (updateSearchTerm)="roomsStore.setSearchTerm($event.target.value)"
+  ></app-search>
+  <app-loader [isLoading]="roomsStore.isLoading()"></app-loader>
+  <app-rooms [rooms]="roomsStore.rooms()"></app-rooms>
   
   <mat-paginator
-  [length]="total()"
-  [pageSize]="pageSize()"
+  [length]="roomsStore.total()"
+  [pageSize]="roomsStore.pageSize()"
   [pageSizeOptions]="[5, 10, 25, 100]"
   aria-label="Select page"
-  (page)="pageSize.set($event.pageSize); page.set($event.pageIndex)"
+  (page)="
+    roomsStore.setPageSize($event.pageSize);
+    roomsStore.setPage($event.pageIndex)
+  "
    />
 </div>
