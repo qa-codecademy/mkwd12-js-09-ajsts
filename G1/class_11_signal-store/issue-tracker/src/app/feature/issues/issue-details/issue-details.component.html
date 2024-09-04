@@ -1,0 +1,25 @@
+@if (selectedIssue()) {
+  <section>
+    <h2>Issue Details</h2>
+    <div class="issue-details">
+      <div>{{ selectedIssue()?.description }}</div>
+      <div class="details-status" [ngClass]="selectedIssue()?.status">
+        {{ selectedIssue()?.status | uppercase }}
+      </div>
+      <div class="form-group">
+        <label for="change-status">Change Status</label>
+        <select
+          id="change-status"
+          (change)="onChangeStatus()"
+          [formControl]="changeStatusCtrl"
+        >
+          <option disabled [value]="issueStatus.NEW">New</option>
+          <option [value]="issueStatus.IN_PROGRESS">In Progress</option>
+          <option [value]="issueStatus.COMPLETED">Completed</option>
+          <option [value]="issueStatus.ON_HOLD">On Hold</option>
+        </select>
+      </div>
+      <div class="details-assignee">{{ selectedIssue()?.assignee }}</div>
+    </div>
+  </section>
+}

@@ -1,0 +1,28 @@
+.issue {
+  font-size: 18px;
+  border-radius: 4px;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 120px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  .assignee {
+    text-align: right;
+    font-size: 18px;
+    font-weight: 600;
+    align-self: flex-end;
+    font-style: italic;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow:
+      0 10px 20px rgba(0, 0, 0, 0.3),
+      0 6px 6px rgba(0, 0, 0, 0.4);
+  }
+}

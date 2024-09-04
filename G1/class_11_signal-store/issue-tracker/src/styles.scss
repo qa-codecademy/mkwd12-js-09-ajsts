@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Suse", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.new {
+  background-color: rgb(149, 214, 255);
+}
+.in-progress {
+  background-color: rgb(247, 247, 168);
+}
+.completed {
+  background-color: rgb(163, 255, 163);
+}
+.on-hold {
+  background-color: rgb(255, 157, 157);
+}

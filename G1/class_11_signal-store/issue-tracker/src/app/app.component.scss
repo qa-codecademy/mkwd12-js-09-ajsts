@@ -1,0 +1,24 @@
+header {
+  height: 100px;
+  background-color: rgb(47, 107, 120);
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+
+  h1 {
+    font-size: 35px;
+    font-weight: 300;
+    margin: 0;
+  }
+}
+
+main {
+  padding: 30px 100px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}

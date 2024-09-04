@@ -1,0 +1,8 @@
+<div class="issue" [ngClass]="issue().status" (click)="onIssueClick()">
+  <div class="description">
+    {{ issue().description }}
+  </div>
+  <div class="assignee">
+    {{ issue().assignee }}
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<section>
+  <h2>Issues</h2>
+  <div class="issues-container">
+    @if (!loading()) {
+      @for (issue of issues(); track issue.id) {
+        <app-issue-item
+          [issue]="issue"
+          (selectedIdOutput)="onSelectIssue($event)"
+        />
+      } @empty {
+        <h3>No Issues Found</h3>
+      }
+    } @else {
+      <h3>Loading...</h3>
+    }
+  </div>
+</section>
