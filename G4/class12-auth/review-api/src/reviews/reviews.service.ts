@@ -4,6 +4,7 @@ import { UpdateReviewDto } from './dto/update-review.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Review } from './entities/review.entity';
 import { EntityManager, Repository, TreeLevelColumn } from 'typeorm';
+import { GetReviewsQuery } from './reviews.model';
 
 @Injectable()
 export class ReviewsService {
@@ -19,11 +20,13 @@ export class ReviewsService {
     });
   }
 
-  async findAll() {
-    return this.reviewsRepo.find({
+  async findAll(query: GetReviewsQuery) {
+    const reviews = await this.reviewsRepo.find({
       relations: {
         user: true,
       },
+      skip: query.firstResult ? Number(query.firstResult) - 1 : 0,
+      take: Number(query.maxResults) || 10,
       select: {
         user: {
           id: true,
@@ -34,6 +37,13 @@ export class ReviewsService {
         },
       },
     });
+
+    const totalCount = await this.reviewsRepo.count();
+
+    return {
+      reviews,
+      totalCount,
+    };
   }
 
   async findOne(id: number) {

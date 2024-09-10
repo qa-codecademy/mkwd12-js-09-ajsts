@@ -9,8 +9,7 @@ Content-Type: application/json
     "email": "test@gmail.com",
     "password": "test1234",
     "firstName": "Test",
-    "lastName": "User",
-    "username": "test001"
+    "lastName": "User"
 }
 
 ### 
@@ -30,13 +29,13 @@ refresh-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFjNTgzMzI5LWI4NGEt
 
 ###
 
-GET http://localhost:3000/api/reviews
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZmMDJkYjZmLWE1OTMtNGEyMy04MDM4LTk2MWE3MDdhNDAzZSIsImlhdCI6MTcyNTU1MTkzNCwiZXhwIjoxNzI1NTY2MzM0fQ.Rrt3Fv6Svqkwe8Jc1-R49FQGvnjI8FIYuslv5CugZvk
+GET http://localhost:3000/api/reviews?firstResult=11&maxResults=5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkMzRkNGE3LWYwYTUtNDJlMi04ZDU1LWQ0MmVhYTllMjMxMyIsImlhdCI6MTcyNTk1MDIzOCwiZXhwIjoxNzI1OTY0NjM4fQ.tJcR_Tb6-CChQ5UFqUmgwJ4Q98ej7hj3duyrPlk5BIo
 
 ###
 
 POST http://localhost:3000/api/reviews
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkMzRkNGE3LWYwYTUtNDJlMi04ZDU1LWQ0MmVhYTllMjMxMyIsImlhdCI6MTcyNTM3MTUzNCwiZXhwIjoxNzI1Mzg1OTM0fQ.VpeDMOUN_tDJ716ikbJVbLfknM2-geHPFPrSnkXxbQ0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkMzRkNGE3LWYwYTUtNDJlMi04ZDU1LWQ0MmVhYTllMjMxMyIsImlhdCI6MTcyNTk1MDIzOCwiZXhwIjoxNzI1OTY0NjM4fQ.tJcR_Tb6-CChQ5UFqUmgwJ4Q98ej7hj3duyrPlk5BIo
 Content-Type: application/json
  
 {

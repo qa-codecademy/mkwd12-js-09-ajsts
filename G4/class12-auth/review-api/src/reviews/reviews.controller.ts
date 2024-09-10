@@ -11,14 +11,15 @@ import {
   ClassSerializerInterceptor,
   UseInterceptors,
   HttpCode,
+  Query,
 } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { Request } from 'express';
 import { User } from 'src/users/entities/user.entity';
 import { AddLikeDislikeDto } from './dto/add-dislike.dto';
+import { GetReviewsQuery } from './reviews.model';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
@@ -32,8 +33,8 @@ export class ReviewsController {
   }
 
   @Get()
-  findAll() {
-    return this.reviewsService.findAll();
+  findAll(@Query() query: GetReviewsQuery) {
+    return this.reviewsService.findAll(query);
   }
 
   @Get(':id')
