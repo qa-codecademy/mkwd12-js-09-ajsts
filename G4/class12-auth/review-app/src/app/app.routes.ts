@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './feature/home/home.component';
 import { LoginComponent } from './feature/auth/components/login/login.component';
 import { RegisterComponent } from './feature/auth/components/register/register.component';
+import { ReviewsListComponent } from './feature/reviews/components/reviews-list/reviews-list.component';
+import { authGuard } from './core/guards';
 
 export const routes: Routes = [
   {
@@ -15,5 +17,10 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'reviews',
+    component: ReviewsListComponent,
+    canActivate: [authGuard],
   },
 ];

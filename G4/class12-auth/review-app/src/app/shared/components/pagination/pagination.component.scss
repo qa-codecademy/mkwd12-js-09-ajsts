@@ -1,0 +1,27 @@
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+
+  .items-per-page {
+    select {
+      font-size: 18px;
+      padding: 3px;
+      text-align: center;
+      height: 38px;
+    }
+  }
+
+  .pagination-container {
+    font-size: 18px;
+    align-items: center;
+    display: flex;
+    gap: 10px;
+
+    button {
+      font-size: 18px;
+      height: 38px;
+      width: 38px;
+    }
+  }
+}
