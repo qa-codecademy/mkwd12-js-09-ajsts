@@ -31,6 +31,9 @@ export class Review {
   @Column()
   director: string;
 
+  @Column()
+  poster: string;
+
   @Column('text', {
     array: true,
     default: [],

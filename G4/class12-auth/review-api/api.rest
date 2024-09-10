@@ -9,7 +9,8 @@ Content-Type: application/json
     "email": "test@gmail.com",
     "password": "test1234",
     "firstName": "Test",
-    "lastName": "User"
+    "lastName": "User",
+    "username": "test001"
 }
 
 ### 
@@ -35,14 +36,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkMzRkNGE3L
 ###
 
 POST http://localhost:3000/api/reviews
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkMzRkNGE3LWYwYTUtNDJlMi04ZDU1LWQ0MmVhYTllMjMxMyIsImlhdCI6MTcyNTk1MDIzOCwiZXhwIjoxNzI1OTY0NjM4fQ.tJcR_Tb6-CChQ5UFqUmgwJ4Q98ej7hj3duyrPlk5BIo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJlNmVlMTY4LTc2YWMtNDI1NC04ZGNjLTg1ZDQyZmZmN2MxNyIsImlhdCI6MTcyNTk1NjI2MCwiZXhwIjoxNzI1OTcwNjYwfQ.W3wUuY2GSh40aOR-IIFZrge4VEwRgd-6AEZ6qVfQYy4
 Content-Type: application/json
  
 {
-  "title": "The Godfather",
-  "year": 1971,
-  "genres": "drama, crime",
-  "rating": 10.0,
-  "text": "A landmark of cinema",
-  "director": "Francis Ford Copolla"
+  "title": "Good Will Hunting",
+  "year": 1997,
+  "genres": "drama",
+  "rating": 8.7,
+  "text": "An amazing story about the human character",
+  "director": "Gus Van Sant",
+  "poster": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/bABCBKYBK7A5G1x0FzoeoNfuj2.jpg"
 }

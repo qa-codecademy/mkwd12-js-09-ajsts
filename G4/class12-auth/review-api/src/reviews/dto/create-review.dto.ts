@@ -1,4 +1,4 @@
-import { IsString, IsNumber } from 'class-validator';
+import { IsString, IsNumber, IsUrl } from 'class-validator';
 
 export class CreateReviewDto {
   @IsString()
@@ -18,4 +18,7 @@ export class CreateReviewDto {
 
   @IsString()
   director: string;
+
+  @IsUrl()
+  poster: string;
 }
