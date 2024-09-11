@@ -1,0 +1,78 @@
+<form [formGroup]="guestForm()">
+  <h3>Add Guest</h3>
+  <div class="form-container">
+    <mat-form-field>
+      <mat-label>First Name</mat-label>
+      <input
+        matInput
+        placeholder="John"
+        type="text"
+        formControlName="firstName"
+      />
+      <mat-error>{{ firstNameErrors }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last Name</mat-label>
+      <input
+        matInput
+        placeholder="Doe"
+        type="text"
+        formControlName="lastName"
+      />
+      <mat-error>{{ lastNameErrors }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="some@email.com"
+        type="email"
+        formControlName="email"
+      />
+      <mat-error>{{ emailErrors }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date of Birth</mat-label>
+      <input matInput formControlName="dateOfBirth" [matDatepicker]="picker" />
+      <mat-hint>{{ "DD/MM/YYYY" }}</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker" />
+      <mat-datepicker #picker />
+      <mat-error>{{ dateOfBirthErrors }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Phone Number</mat-label>
+      <input
+        type="tel"
+        matInput
+        formControlName="phone"
+        placeholder="+38970223305"
+      />
+      <mat-error>{{ phoneNumberErrors }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <textarea
+        matInput
+        placeholder="Ilindenska 1b, Skopje, Macedonia"
+        formControlName="address"
+      ></textarea>
+      <mat-error>{{ addressErrors }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Passport Number</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="A1234567889"
+        formControlName="passportNumber"
+      />
+      <mat-error>{{ passportNumberErrors }}</mat-error>
+    </mat-form-field>
+  </div>
+</form>

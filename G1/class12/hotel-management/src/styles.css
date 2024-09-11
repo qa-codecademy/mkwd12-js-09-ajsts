@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Snack Classes */
+
+.success-snackbar {
+  background-color: #10b981; /* Emerald */
+  color: #065f46; /* Dark Emerald */
+}
+
+.warn-snackbar {
+  background-color: #f59e0b; /* Amber */ 
+  color: #92400e; /* Dark Amber */
+}
+
+.info-snackbar {
+  background-color: #3b82f6; /* Blue */
+  color: #1e3a8a; /* Dark Blue */
+}
+
+.error-snackbar {
+  background-color: #ef4444; /* Red */
+  color: #991b1b; /* Dark Red */
+}

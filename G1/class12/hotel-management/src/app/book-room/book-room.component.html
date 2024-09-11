@@ -1,0 +1,51 @@
+<div class="wrapper">
+  <h2>Book room: {{ (room$ | async)?.name }}</h2>
+
+  <div class="guest-type">
+    <mat-button-toggle-group
+      name="guestType"
+      aria-label="Guest Type"
+      [value]="selectedGuestType()"
+      (change)="selectedGuestType.set($event.value)"
+    >
+      <mat-button-toggle value="existing">Existing</mat-button-toggle>
+      <mat-button-toggle value="new">New</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="guest-container">
+    @if(selectedGuestType() === 'existing') {
+    <app-select-guest [guestControl]="guestControl" />
+    } @else {
+    <app-add-guest [guestForm]="guestForm" />
+    }
+  </div>
+
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="booking-dates">
+    <mat-form-field>
+      <mat-label>Select booking dates</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          placeholder="Start Date"
+          formControlName="startDate"
+        />
+        <input matEndDate placeholder="End Date" formControlName="endDate" />
+      </mat-date-range-input>
+      <mat-hint>DD/MM/YYYY - DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker" />
+      <mat-date-range-picker #picker />
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button
+        mat-flat-button
+        color="primary"
+        [disabled]="bookingForm.invalid"
+        type="submit"
+      >
+        Create Booking
+      </button>
+    </div>
+  </form>
+</div>
