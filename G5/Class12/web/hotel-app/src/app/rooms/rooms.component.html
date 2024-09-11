@@ -1,0 +1,17 @@
+<!-- mat-grid-list is a two-dimensional list view that arranges cells into grid-based layout -->
+<!-- An mat-grid-list must specify a cols attribute which sets the number of columns in the grid  -->
+<!-- The number of rows will be automatically determined based on the number of columns and the number of items -->
+<mat-grid-list
+[cols]="breakpoint"
+rowHeight="2:5"
+gutterSize="10px"
+class="grid-container"
+(window:resize)="onResize($event)"
+>
+  @if (!rooms().length) {
+    <p>No rooms found</p>
+  }
+  @for (room of rooms(); track room.id) {
+    <mat-grid-tile><app-room [room] = "room"></app-room></mat-grid-tile>
+  }
+</mat-grid-list>
