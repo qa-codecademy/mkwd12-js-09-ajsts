@@ -1,0 +1,21 @@
+<form>
+  <mat-form-field>
+    <mat-label>Enter your email</mat-label>
+    <input matInput placeholder="pat@example.com" required />
+    @if (false) {
+      <mat-error>{{ errorMessage() }}</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Enter your password</mat-label>
+    <input matInput placeholder="Pas$w0rd" required type="password" />
+    @if (false) {
+      <mat-error>{{ errorMessage() }}</mat-error>
+    }
+  </mat-form-field>
+
+  <button mat-flat-button>Login</button>
+
+  <p>You don't have an account? Click <a routerLink="/register">here</a>!</p>
+</form>
