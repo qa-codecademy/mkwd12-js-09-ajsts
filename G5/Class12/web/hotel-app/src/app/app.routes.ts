@@ -18,7 +18,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: ':id',
+        path: ':id', // rooms/ovde_nesto
         loadComponent: () =>
           import('./room-details/room-details.component').then(
             (c) => c.RoomDetailsComponent,

@@ -1,1 +1,25 @@
-<p>register works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="submit()">
+  <mat-form-field>
+    <mat-label>Enter your email</mat-label>
+    <input
+      matInput
+      placeholder="pat@example.com"
+      required
+      type="email"
+      formControlName="email"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Enter your password</mat-label>
+    <input
+      matInput
+      placeholder="Pas$w0rd"
+      required
+      type="password"
+      formControlName="password"
+    />
+  </mat-form-field>
+
+  <button mat-flat-button>Register</button>
+</form>

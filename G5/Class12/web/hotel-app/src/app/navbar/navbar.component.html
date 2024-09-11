@@ -11,7 +11,12 @@
     </li>
 
     <li>
-      <a routerLink="/login">Login</a>
+      @if (isLoggedIn()) {
+        <span>Hello "your_name"</span>
+        <span (click)="logout()">Logout</span>
+      } @else {
+        <a routerLink="/login">Login</a>
+      }
     </li>
   </ul>
 </nav>
