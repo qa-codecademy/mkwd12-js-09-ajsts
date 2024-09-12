@@ -32,10 +32,6 @@ export class ReviewDetailsComponent implements OnInit {
   maxPages = computed(() => Math.ceil(this.commentsTotalCount() / 10));
 
   ngOnInit() {
-    document.addEventListener('scroll', (event: any) => {
-      console.log(event);
-    });
-
     const id = this.route.snapshot.params.id;
 
     this.reviewsService.getReviewById(id);
