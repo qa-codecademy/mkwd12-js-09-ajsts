@@ -1,0 +1,33 @@
+.wrapper {
+  padding: 10px;
+}
+
+h1 {
+  font-size: 36px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+.available {
+  color: #015101;
+}
+
+.images {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  > img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+}
+
+.unavailable {
+  color: #c41313;
+}

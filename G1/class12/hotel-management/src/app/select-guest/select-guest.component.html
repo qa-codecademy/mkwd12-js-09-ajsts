@@ -1,0 +1,21 @@
+<div>
+  <h3>Select Guest</h3>
+
+  <mat-form-field>
+    <mat-label>Select a guest</mat-label>
+    <input
+      type="text"
+      placeholder="Select a guest"
+      [matAutocomplete]="auto"
+      matInput
+      [formControl]="guestControl()"
+    />
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      @for (guest of guests; track guest.id) {
+      <mat-option [value]="guest"
+        >{{ guest.firstName }} {{ guest.lastName }}</mat-option
+      >
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

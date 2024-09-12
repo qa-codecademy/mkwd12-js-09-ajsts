@@ -1,0 +1,97 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      Show / Hide Filters
+    </mat-expansion-panel-header>
+    <div class="filters-container">
+      <div>
+        <mat-form-field>
+          <mat-label>Guest Capacity</mat-label>
+          <input
+            matInput
+            min="1"
+            max="10"
+            type="number"
+            [ngModel]="guestCapacity()"
+            (ngModelChange)="onGuestCapacityChange.emit($event)"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Beds</mat-label>
+          <input
+            matInput
+            type="number"
+            min="1"
+            max="10"
+            [ngModel]="beds()"
+            (ngModelChange)="onBedsChange.emit($event)"
+          />
+        </mat-form-field>
+      </div>
+      <mat-radio-group>
+        <mat-label>Board Options:</mat-label>
+        @for (boardOption of boardOptions; track boardOption) {
+        <mat-radio-button
+          [value]="boardOption"
+          [checked]="boardOption === board()"
+          (click)="onBoardChange.emit(boardOption)"
+        >
+          {{ boardOption }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
+
+      <mat-radio-group>
+        <mat-label>View Options:</mat-label>
+        @for (viewOption of viewOptions; track viewOption) {
+        <mat-radio-button
+          [value]="viewOption"
+          [checked]="viewOption === view()"
+          (click)="onViewChange.emit(viewOption)"
+        >
+          {{ viewOption }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
+
+      <mat-radio-group>
+        <mat-label>Parking Options:</mat-label>
+        @for (parkingOption of parkingOptions; track parkingOption) {
+        <mat-radio-button
+          [value]="parkingOption"
+          [checked]="parkingOption === parking()"
+          (click)="onParkingChange.emit(parkingOption)"
+        >
+          {{ parkingOption }}
+        </mat-radio-button>
+        }
+      </mat-radio-group>
+
+      <p>{{ pricePerNightFrom() }} - {{ pricePerNightTo() }}</p>
+      <mat-slider min="1" max="1000">
+        <input
+          matSliderStartThumb
+          [ngModel]="pricePerNightFrom()"
+          (ngModelChange)="onPricePerNightFromChange.emit($event)"
+        />
+        <input
+          matSliderEndThumb
+          [ngModel]="pricePerNightTo()"
+          (ngModelChange)="onPricePerNightToChange.emit($event)"
+        />
+      </mat-slider>
+      <div>
+        <mat-checkbox
+          [checked]="hasAirConditioning()"
+          (click)="onHasAirConditioningChange.emit(!hasAirConditioning())"
+          >Air Conditioning</mat-checkbox
+        >
+        <mat-checkbox
+          [checked]="isPetFriendly()"
+          (click)="onIsPetFriendlyChange.emit(!isPetFriendly())"
+          >Pet Friendly</mat-checkbox
+        >
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

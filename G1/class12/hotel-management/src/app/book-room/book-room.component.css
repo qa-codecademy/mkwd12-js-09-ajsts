@@ -1,0 +1,44 @@
+.wrapper {
+  h2 {
+    margin-top: 10px;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .guest-type {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .guest-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+
+    app-add-guest,
+    app-select-guest {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+
+  .booking-dates {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    mat-form-field {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-actions {
+      margin-top: 10px;
+    }
+  }
+}

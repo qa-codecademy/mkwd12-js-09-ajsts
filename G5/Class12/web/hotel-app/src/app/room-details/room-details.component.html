@@ -1,0 +1,10 @@
+<h3>{{ (room | async)?.name}}</h3>
+<h6>{{ (room | async)?.description }}</h6>
+<p>Room type: {{ (room | async)?.type }}</p>
+<p>Price per night: {{ (room | async)?.pricePerNight }}</p>
+<p>Guest capacity: {{ (room | async)?.guestCapacity }}</p>
+<div class="images">
+  @for (image of (room | async)?.images; track image) {
+    <img [src]="image" [alt]="(room | async)?.name" />
+  }
+</div>

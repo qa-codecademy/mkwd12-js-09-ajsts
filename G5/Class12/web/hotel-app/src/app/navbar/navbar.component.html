@@ -1,0 +1,22 @@
+<nav>
+  <ul>
+    <li>
+      <a routerLink="/" routerLinkActive="active">Home</a>
+    </li>
+    <li>
+      <a routerLink="/rooms" routerLinkActive="active">Rooms</a>
+    </li>
+    <li>
+      <a routerLink="/guests" routerLinkActive="active">Guests</a>
+    </li>
+
+    <li>
+      @if (isLoggedIn()) {
+        <span>Hello "your_name"</span>
+        <span (click)="logout()">Logout</span>
+      } @else {
+        <a routerLink="/login">Login</a>
+      }
+    </li>
+  </ul>
+</nav>
