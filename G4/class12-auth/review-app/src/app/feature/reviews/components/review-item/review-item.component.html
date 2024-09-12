@@ -1,4 +1,5 @@
-<div class="review-item">
+<!-- routerLink="/details/{{ review().id }}" -->
+<div [routerLink]="'/details/' + review().id" class="review-item">
   <div class="item-poster">
     <img [src]="review().poster" alt="A poster of the movie" />
   </div>

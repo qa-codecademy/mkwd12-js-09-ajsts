@@ -4,6 +4,7 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from './entities/comment.entity';
 import { Repository } from 'typeorm';
+import { GetCommentsQuery } from './comments.model';
 
 @Injectable()
 export class CommentsService {
@@ -21,6 +22,31 @@ export class CommentsService {
         id: userId,
       },
     });
+  }
+
+  async findReviewComments(reviewId: number, query: GetCommentsQuery) {
+    const [comments, totalCount] = await this.commentsRepo.findAndCount({
+      where: {
+        review: {
+          id: reviewId,
+        },
+      },
+      relations: {
+        user: true,
+      },
+      order: {
+        added: 'DESC',
+      },
+      select: {
+        user: {
+          username: true,
+        },
+      },
+      take: query.maxResults ? Number(query.maxResults) : 10,
+      skip: query.firstResult ? Number(query.firstResult) - 1 : 0,
+    });
+
+    return { comments, totalCount };
   }
 
   findAll() {
