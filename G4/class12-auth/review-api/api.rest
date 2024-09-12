@@ -6,11 +6,11 @@ POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-    "email": "test@gmail.com",
+    "email": "borche@gmail.com",
     "password": "test1234",
-    "firstName": "Test",
-    "lastName": "User",
-    "username": "test001"
+    "firstName": "Boris",
+    "lastName": "Borisovski",
+    "username": ""
 }
 
 ### 
@@ -47,4 +47,26 @@ Content-Type: application/json
   "text": "An amazing story about the human character",
   "director": "Gus Van Sant",
   "poster": "https://image.tmdb.org/t/p/w600_and_h900_bestv2/bABCBKYBK7A5G1x0FzoeoNfuj2.jpg"
+}
+
+### 
+
+POST http://localhost:3000/api/comments
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJmMGJlNzc0LTVlMTItNDFkMy05MzY4LTdkZWQ1NzJjZmU5OSIsImlhdCI6MTcyNjE0NDYxNCwiZXhwIjoxNzI2MTU5MDE0fQ.whnB6dukrZPSwazcTyx3Ho9NrVtwGYp9CtzWRGSUues
+
+{
+  "reviewId": 10,
+  "text": "Testing time"
+}
+
+### 
+
+POST http://localhost:3000/api/reviews/10/add-like-dislike
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJlNmVlMTY4LTc2YWMtNDI1NC04ZGNjLTg1ZDQyZmZmN2MxNyIsImlhdCI6MTcyNjE0OTc3NywiZXhwIjoxNzI2MTY0MTc3fQ.WTMagB5hc7G0J-wtRU81rTltExPoKSLcADCldNrK4yk
+Content-Type: application/json
+
+
+{
+  "type": "LIKE"
 }

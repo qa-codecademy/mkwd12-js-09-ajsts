@@ -18,8 +18,6 @@ export class AuthGuard implements CanActivate {
 
       const token = this.extractToken(request);
 
-      console.log(token);
-
       const { id } = await this.jwtService.verifyAsync(token, {
         secret: this.configService.get('ACCESS_TOKEN_SECRET'),
       });
@@ -32,8 +30,6 @@ export class AuthGuard implements CanActivate {
 
       return true;
     } catch (error) {
-      console.log(error);
-
       return false;
     }
   }

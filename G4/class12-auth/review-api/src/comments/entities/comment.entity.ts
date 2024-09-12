@@ -15,4 +15,7 @@ export class Comment {
 
   @ManyToOne(() => Review, (review) => review.comments)
   review: Review;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  added: string;
 }

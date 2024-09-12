@@ -77,7 +77,6 @@ export class AuthService {
 
       await this.usersService.deleteRefreshToken(id, refreshToken);
     } catch (error) {
-      console.log(error);
       throw new BadRequestException("Can't logout user");
     }
   }

@@ -41,7 +41,6 @@ export class AuthController {
   @Get('logout')
   @HttpCode(HttpStatus.NO_CONTENT)
   logoutUser(@Headers('refresh-token') refreshToken: string) {
-    console.log(refreshToken);
     return this.authService.logoutUser(refreshToken);
   }
 

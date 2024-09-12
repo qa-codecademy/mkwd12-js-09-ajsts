@@ -35,8 +35,6 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('comments')
   findCommentsByUser(@Req() req: { user: User }) {
-    console.log(req.user);
-
     return this.usersService.findCommentsByUser(req.user.id);
   }
 

@@ -25,6 +25,9 @@ export class ReviewsService {
       relations: {
         user: true,
       },
+      order: {
+        id: 'ASC',
+      },
       skip: query.firstResult ? Number(query.firstResult) - 1 : 0,
       take: Number(query.maxResults) || 10,
       select: {
@@ -50,8 +53,16 @@ export class ReviewsService {
     const foundReview = await this.reviewsRepo.findOne({
       where: { id },
       relations: {
-        comments: true,
+        comments: {
+          user: true,
+        },
+
         user: true,
+      },
+      order: {
+        comments: {
+          added: 'DESC',
+        },
       },
       select: {
         user: {
@@ -60,6 +71,14 @@ export class ReviewsService {
           lastName: true,
           email: true,
           username: true,
+        },
+        comments: {
+          id: true,
+          text: true,
+          added: true,
+          user: {
+            username: true,
+          },
         },
       },
     });
@@ -121,8 +140,9 @@ export class ReviewsService {
           'UPDATE review SET likes = array_remove(likes, $1) WHERE review.id = $2',
           [userId, reviewId],
         );
+
         await this.manager.query(
-          'UPDATE review SET dislikes = array_append(likes, $1) WHERE review.id = $2',
+          'UPDATE review SET dislikes = array_append(dislikes, $1) WHERE review.id = $2',
           [userId, reviewId],
         );
       }
@@ -135,9 +155,10 @@ export class ReviewsService {
       }
       if (type === 'LIKE') {
         await this.manager.query(
-          'UPDATE review SET dislikes = array_remove(likes, $1) WHERE review.id = $2',
+          'UPDATE review SET dislikes = array_remove(dislikes, $1) WHERE review.id = $2',
           [userId, reviewId],
         );
+
         await this.manager.query(
           'UPDATE review SET likes = array_append(likes, $1) WHERE review.id = $2',
           [userId, reviewId],
