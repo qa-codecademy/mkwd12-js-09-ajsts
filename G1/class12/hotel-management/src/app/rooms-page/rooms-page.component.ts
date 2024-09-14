@@ -33,9 +33,9 @@ export class RoomsPageComponent implements OnInit {
     'guestCapacity',
     'view',
     'parking',
-    'isPetFriendly',
-    'board',
-    'hasAirConditioning',
+    // 'isPetFriendly',
+    // 'board',
+    // 'hasAirConditioning',
   ]
   roomsStore = inject(RoomsStore);
   subscription: Subscription = new Subscription();
