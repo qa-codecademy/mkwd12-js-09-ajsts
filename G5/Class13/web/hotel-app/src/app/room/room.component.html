@@ -1,0 +1,100 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>
+      <a routerLink="/rooms/{{ room()?.id }}">{{ room()?.name }}</a>
+      </mat-card-title>
+    <mat-card-subtitle>
+      {{ room()?.type }} | {{ room()?.pricePerNight | currency }}/night
+    </mat-card-subtitle>
+  </mat-card-header>
+  <div class="card-image">
+    <img
+    mat-card-image
+    [src]="room()?.images?.[0]"
+    [alt]="room()?.name"
+    height="auto"
+    width="100%"
+    >
+  </div>
+  <mat-card-content>
+    <p>{{ room()?.description }}</p>
+  </mat-card-content>
+  <mat-card-actions class="card-actions">
+    <button mat-fab [matBadge]="room()?.beds" matBadgeColor="primary">
+      <mat-icon fontIcon="beds" />
+    </button>
+
+    @if (room()?.extraBeds) {
+      <button mat-fab [matBadge]="room()?.extraBeds" matBadgeColor="primary">
+        <mat-icon fontIcon="single_bed" />
+      </button>
+    }
+    @if (room()?.guestCapacity) {
+      <button mat-fab [matBadge]="room()?.guestCapacity" matBadgeColor="primary">
+        <mat-icon fontIcon="groups" />
+      </button>
+    }
+    @if (room()?.baths) {
+      <button mat-fab [matBadge]="room()?.baths" matBadgeColor="primary">
+        <mat-icon fontIcon="bathtub" />
+      </button>
+    }
+    @if (room()?.hasAirConditioning) {
+      <button mat-fab>
+        <mat-icon fontIcon="ac_unit" />
+      </button>
+    }
+    @if (room()?.isPetFriendly) {
+      <button mat-fab>
+        <mat-icon fontIcon="pets" />
+      </button>
+    }
+    @if (room()?.parking !== ParkingType.None) {
+      <button
+        mat-fab
+        matTooltipPosition="above"
+        [matTooltip]="(room()?.parking || '') + ' Parking'"
+      >
+        <mat-icon fontIcon="local_parking" />
+      </button>
+    }
+    @if (room()?.board !== Board.None) {
+      <button
+        mat-fab
+        matTooltipPosition="above"
+        [matTooltip]="room()?.board || ''"
+      >
+        <mat-icon fontIcon="dinner_dining" />
+      </button>
+    }
+    @if (room()?.view !== RoomView.None) {
+      @if (room()?.view === RoomView.Sea) {
+        <button
+          mat-fab
+          matTooltipPosition="above"
+          [matTooltip]="(room()?.view || '') + ' View'"
+        >
+          <mat-icon fontIcon="beach_access" />
+        </button>
+      }
+      @if (room()?.view === RoomView.Garden) {
+        <button
+          mat-fab
+          matTooltipPosition="above"
+          [matTooltip]="(room()?.view || '') + ' View'"
+        >
+          <mat-icon fontIcon="nature" />
+        </button>
+      }
+      @if (room()?.view === RoomView.Pool) {
+        <button
+          mat-fab
+          matTooltipPosition="below"
+          [matTooltip]="(room()?.view || '') + ' View'"
+        >
+          <mat-icon fontIcon="pool" />
+        </button>
+      }
+    }
+  </mat-card-actions>
+</mat-card>
