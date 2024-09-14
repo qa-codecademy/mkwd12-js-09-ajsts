@@ -14,6 +14,7 @@ export class AuthService {
   private usersPath = `${environment.apiURL}/users`;
 
   isAuth = signal<boolean>(false);
+  currentUser = signal<User | null>(null);
 
   constructor(
     private readonly http: HttpClient,
@@ -68,11 +69,6 @@ export class AuthService {
   }
 
   getMe(): Observable<User | null> {
-    console.log('LOGGED IN USER INFORMATION');
-    /**
-     * If user exists we gonna set isAuth to true again
-     */
-
     if (!this.getToken('access')) {
       return of(null);
     }
@@ -80,13 +76,46 @@ export class AuthService {
     return this.http.get<User>(`${this.usersPath}/me`).pipe(
       tap((response) => {
         console.log('GET ME: ', response);
+
+        this.currentUser.set(response);
+        this.isAuth.set(true);
       }),
       catchError((error) => {
         console.log(error);
-
+        this.isAuth.set(false);
+        this.currentUser.set(null);
         return of(null);
       }),
     );
+  }
+
+  refreshToken() {
+    const refreshToken = this.getToken('refresh');
+
+    return this.http
+      .post<AuthResponse>(`${this.authPath}/refresh-token`, {
+        refreshToken,
+      })
+      .pipe(
+        tap((response) => {
+          console.log('Refreshed the tokens, new values:', response);
+
+          this.setToken(response.token, 'access');
+          this.setToken(response.refreshToken, 'refresh');
+
+          this.isAuth.set(true);
+        }),
+        catchError((error) => {
+          console.error(error);
+
+          // MAYBE THE REFRESH TOKEN WONT BE VALID
+          // CHECK IF ERROR IS DUE TO INVALID REFRESH TOKEN
+          if (error.status === 401) {
+            this.logout();
+          }
+          return of(null);
+        }),
+      );
   }
 
   logout() {

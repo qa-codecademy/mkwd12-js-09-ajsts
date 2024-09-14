@@ -13,10 +13,13 @@ export class NavbarComponent {
   constructor(private readonly authService: AuthService) {}
 
   isLoggedIn = computed(() => this.authService.isAuth());
+  currentUser = computed(() => this.authService.currentUser());
 
+  // This can be placed on some other root level component =)
   ngOnInit() {
-    this.authService.getMe();
+    this.authService.getMe().subscribe();
   }
+
   logout() {
     this.authService.logout();
   }
