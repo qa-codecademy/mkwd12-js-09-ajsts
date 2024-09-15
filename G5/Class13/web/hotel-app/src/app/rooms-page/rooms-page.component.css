@@ -1,0 +1,7 @@
+.roomName {
+  text-decoration: none;
+  color: inherit;
+}
+.roomName:hover {
+  color: #0f5cbb;
+}

@@ -1,0 +1,24 @@
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+
+  li {
+    cursor: pointer;
+  }
+
+  li a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+  }
+
+  li a.active {
+    background-color: #0f5cbb;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+  }
+}

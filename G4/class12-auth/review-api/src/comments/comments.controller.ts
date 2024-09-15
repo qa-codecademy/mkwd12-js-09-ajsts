@@ -8,12 +8,15 @@ import {
   Delete,
   Req,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { User } from 'src/users/entities/user.entity';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { query } from 'express';
+import { GetCommentsQuery } from './comments.model';
 
 @UseGuards(AuthGuard)
 @Controller('comments')
@@ -31,6 +34,14 @@ export class CommentsController {
   @Get()
   findAll() {
     return this.commentsService.findAll();
+  }
+
+  @Get('/review/:id')
+  findCommentsForReview(
+    @Query() query: GetCommentsQuery,
+    @Param('id') reviewId: string,
+  ) {
+    return this.commentsService.findReviewComments(+reviewId, query);
   }
 
   @Get(':id')

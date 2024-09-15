@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { Room } from '../../types/room.interface';
 import { SearchComponent } from '../search/search.component';
 import { RoomsComponent } from '../rooms/rooms.component';
@@ -33,6 +33,7 @@ import { RoomsStore } from '../../store/rooms.store';
 export class HomeComponent implements OnInit {
   readonly roomsStore = inject(RoomsStore);
   subscription: Subscription = new Subscription();
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   constructor(private roomService: RoomsService) {
     effect(
@@ -48,6 +49,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getRooms();
+    this.getRooms();
   }
 
   getRooms(searchParams?: SearchRoomQuery) {
@@ -57,6 +59,10 @@ export class HomeComponent implements OnInit {
       this.roomsStore.setTotal(response.total);
       this.roomsStore.setRooms(response.payload);
       this.roomsStore.setLoading(false);
+      if (this.paginator) {
+        this.paginator.pageIndex = this.roomsStore.page();
+      }
+      
     })
   }
 

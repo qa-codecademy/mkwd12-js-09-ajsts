@@ -6,11 +6,11 @@ POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-    "email": "borche@gmail.com",
+    "email": "third@gmail.com",
     "password": "test1234",
-    "firstName": "Boris",
-    "lastName": "Borisovski",
-    "username": ""
+    "firstName": "Third",
+    "lastName": "Thirdson",
+    "username": "thirduser"
 }
 
 ### 
@@ -19,7 +19,7 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "test@gmail.com",
+    "email": "third@gmail.com",
     "password": "test1234"
 }
 
@@ -53,11 +53,11 @@ Content-Type: application/json
 
 POST http://localhost:3000/api/comments
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJmMGJlNzc0LTVlMTItNDFkMy05MzY4LTdkZWQ1NzJjZmU5OSIsImlhdCI6MTcyNjE0NDYxNCwiZXhwIjoxNzI2MTU5MDE0fQ.whnB6dukrZPSwazcTyx3Ho9NrVtwGYp9CtzWRGSUues
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNiMTQ5OTY0LWZlMjctNGMyNi05ODc4LTFkZTczNGFlMGFiMyIsImlhdCI6MTcyNjE1ODUwNiwiZXhwIjoxNzI2MTcyOTA2fQ.EoKZQPqFnSpRoohnhxgF6CEE-dPW6eR1DmwlFqUYDeM
 
 {
-  "reviewId": 10,
-  "text": "Testing time"
+  "reviewId": 1,
+  "text": "Free javascript tutorials at punjabi.com"
 }
 
 ### 
@@ -70,3 +70,8 @@ Content-Type: application/json
 {
   "type": "LIKE"
 }
+
+### 
+
+GET http://localhost:3000/api/comments/review/1
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNiMTQ5OTY0LWZlMjctNGMyNi05ODc4LTFkZTczNGFlMGFiMyIsImlhdCI6MTcyNjE2MDQ5NSwiZXhwIjoxNzI2MTc0ODk1fQ.SSif5rA4iCG-7-KazvtWAOU9LDd8syvC8jXPYkGNETE

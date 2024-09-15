@@ -1,0 +1,21 @@
+header {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid gray;
+  margin-bottom: 50px;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+
+  .nav {
+    flex: 1 1 auto;
+  }
+}
