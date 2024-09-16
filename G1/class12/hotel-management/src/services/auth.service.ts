@@ -27,7 +27,7 @@ export class AuthService {
   }
   register(email: string, password: string) {
     return this.http
-    .post<AuthResponse>(`${this.authPath}/register`, {
+    .post<Auth>(`${this.authPath}/register`, {
       email,
       password
     }).pipe(
@@ -57,7 +57,7 @@ export class AuthService {
     )
   }
 
-  #setToken(token: string = '', type: 'access' | 'refresh' = 'access') {
+  #setToken(token: string, type: 'access' | 'refresh' = 'access') {
     localStorage.setItem(type, token);
   }
 

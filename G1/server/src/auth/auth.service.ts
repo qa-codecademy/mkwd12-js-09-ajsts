@@ -13,6 +13,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RefreshTokenResponseDto } from './dto/refresh-token-response.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { BasicUser } from 'src/users/dto/basic-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -47,8 +48,8 @@ export class AuthService {
     return passwordlessUser;
   }
 
-  async login(loginDto: LoginDto): Promise<RefreshTokenResponseDto> {
-    const user = await this.userRepository.findOneBy({
+  async login(loginDto: LoginDto): Promise<any> {
+    const user: BasicUser = await this.userRepository.findOneBy({
       email: loginDto.email,
     });
 
@@ -71,7 +72,11 @@ export class AuthService {
 
     await this.#addRefreshToken(user, refreshToken);
 
+    // Returning the users data is a quick hack for the issue in the /users/me route
+    // Since it does not work properly, we should return users data after login, to use them on the FE
     return {
+      email: user.email, 
+      role: user.role, 
       token,
       refreshToken,
     };

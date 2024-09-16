@@ -21,6 +21,10 @@ export class GuestsService {
     });
   }
 
+  getGuest(id: string): Observable<Guest> {
+    return this.http.get<Guest>(`${this.guestsPath}/${id}`);
+  }
+
   addGuest(guest: CreateGuest): Observable<Guest> {
     return this.http.post<Guest>(this.guestsPath, guest);
   }

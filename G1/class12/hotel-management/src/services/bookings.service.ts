@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateBooking } from '../types/booking.interface';
-import { catchError } from 'rxjs';
+import { Booking, CreateBooking } from '../types/booking.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +11,6 @@ export class BookingsService {
   constructor(private readonly http: HttpClient) {}
 
   createBooking(booking: CreateBooking) {
-    return this.http.post<any>(this.bookingsPath, booking);
+    return this.http.post<Booking>(this.bookingsPath, booking);
   }
 }
