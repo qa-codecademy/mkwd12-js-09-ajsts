@@ -9,5 +9,15 @@
     <li>
       <a routerLink="/guests" routerLinkActive="active">Guests</a>
     </li>
+    <li>
+      @if (isLoggedIn()) {
+        <span>
+          Hello, {{ currentUser()?.email }}
+        </span>
+        <span style="margin-left: 20px;" (click)="logout()">Logout</span>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+      }
+    </li>
   </ul>
 </nav>

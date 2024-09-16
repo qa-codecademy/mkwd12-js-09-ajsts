@@ -27,7 +27,7 @@ export class AuthService {
   }
   register(email: string, password: string) {
     return this.http
-    .post<Auth>(`${this.authPath}/register`, {
+    .post<User>(`${this.authPath}/register`, {
       email,
       password
     }).pipe(
@@ -49,12 +49,37 @@ export class AuthService {
         this.#setToken(response.token, 'access');
         this.#setToken(response.refreshToken, 'refresh');
         this.isAuth.set(true);
+        const userData = {
+          email: response.email,
+          role: response.role
+        }
+        this.currentUser.set(userData);
       }),
       catchError((error) => {
         this.notificationService.showNotification(error.error.message, '', NotificationType.Error)
         return of(null)
       })
     )
+  }
+
+  logout() {
+    this.isAuth.set(false);
+    this.#removeToken('access');
+    this.#removeToken('refresh');
+    this.currentUser.set(null);
+    // navigate user to login page
+    this.router.navigate(['/login']);
+  }
+
+  refreshToken() {
+    const refreshToken = this.#getToken('refresh');
+
+    if(!refreshToken) {
+      this.isAuth.set(false);
+      this.currentUser.set(null);
+      return of(null);
+    }
+    return this.http.post<any>(`${this.authPath}/refresh-token`, { refreshToken})
   }
 
   #setToken(token: string, type: 'access' | 'refresh' = 'access') {
