@@ -5,6 +5,7 @@ header {
   align-items: center;
   padding: 1rem;
   border-bottom: 1px solid gray;
+  margin-bottom: 50px;
 
   .logo {
     display: flex;

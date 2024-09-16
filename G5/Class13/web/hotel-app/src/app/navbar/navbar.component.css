@@ -8,4 +8,17 @@ ul {
   li {
     cursor: pointer;
   }
+
+  li a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+  }
+
+  li a.active {
+    background-color: #0f5cbb;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+  }
 }
