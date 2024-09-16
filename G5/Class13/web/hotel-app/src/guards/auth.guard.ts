@@ -6,6 +6,7 @@ import { UserRole } from '../types/user-role.enum';
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
+  //localhost:3000/rooms => state.url
 
   if (!authService.isAuth()) {
     router.navigate(['/login']);

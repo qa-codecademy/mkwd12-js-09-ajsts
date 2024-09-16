@@ -1,0 +1,42 @@
+<!-- USING SUBJECTS/OBSERVABLES -->
+
+<!-- <h1>Tic Tac Toe</h1>
+
+<div class="board">
+  @for (cell of board(); track $index) {
+  <div (click)="makeMove($index)" class="cell">
+    {{ cell }}
+  </div>
+  }
+</div>
+
+<button (click)="reset()">Reset</button>
+
+<section>
+  @if(winner() && winner() !== 'draw'){
+  <h3>Winner is: {{ winner() }}</h3>
+  } @if(winner() && winner() === 'draw'){
+  <h3>The game is draw.</h3>
+  }
+</section> -->
+
+<!-- USING STORE -->
+<h1>Tic Tac Toe</h1>
+
+<div class="board">
+  @for (cell of board(); track $index) {
+  <div (click)="makeMove($index)" class="cell">
+    {{ cell }}
+  </div>
+  }
+</div>
+
+<button (click)="reset()">Reset</button>
+
+<section>
+  @if(gameStore.winner () && gameStore. winner() !== 'draw'){
+  <h3>Winner is: {{ gameStore.winner() }}</h3>
+  } @if(gameStore.winner() && gameStore.winner() === 'draw'){
+  <h3>The game is draw.</h3>
+  }
+</section>

@@ -6,6 +6,10 @@ import { catchError, switchMap, throwError } from 'rxjs';
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
 
+  if (req.url === '/guests') {
+    // with some other modifications
+    return next(req);
+  }
   const accessToken = authService.getToken('access');
 
   const newRequest = req.clone({

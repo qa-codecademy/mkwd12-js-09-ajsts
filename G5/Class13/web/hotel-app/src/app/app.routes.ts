@@ -11,7 +11,6 @@ export const routes: Routes = [
   {
     path: 'rooms',
     canActivate: [authGuard],
-
     children: [
       {
         path: '',

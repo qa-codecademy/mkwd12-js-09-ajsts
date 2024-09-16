@@ -22,6 +22,9 @@ export class RoomService {
         params: {
           ...searchQuery, // spread the properties of the searchQuery object into the params object
         },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access')}`,
+        },
       })
       .pipe(
         catchError((error) => {
