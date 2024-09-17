@@ -26,7 +26,7 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/api/auth/refresh-token
-refresh-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFjNTgzMzI5LWI4NGEtNDhiMy1hOGQ1LTY3ZWFhNDE2ZTFiNCIsImlhdCI6MTcyNDc2MzU0MCwiZXhwIjoxNzI1MzY4MzQwfQ.WFknRuC2qtWfCBlO8X0xPvAWTJMg1-E1717A_vK9ZGc
+refresh-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNiMTQ5OTY0LWZlMjctNGMyNi05ODc4LTFkZTczNGFlMGFiMyIsImlhdCI6MTcyNjI5OTcwMiwiZXhwIjoxNzI2OTA0NTAyfQ.GfHdSIUBnQeixApsfHgijJvRLcKfxdGgqhazSaus9PE
 
 ###
 

@@ -71,19 +71,29 @@
       }
 
       .info-footer {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr max-content max-content;
+        gap: 10px;
+        align-items: center;
         border-top: 2px solid rgb(205, 205, 205);
         padding-top: 20px;
-        align-items: center;
 
         em {
           font-size: 18px;
         }
 
+        .edit-link {
+          background-color: rgb(173, 172, 184);
+          border: 1px solid lightgray;
+          border-radius: 30px;
+          font-size: 22px;
+          padding: 5px 10px;
+          cursor: pointer;
+        }
+
         .likes-dislikes-panel {
           display: flex;
-          background-color: rgb(210, 210, 210);
+          background-color: rgb(173, 172, 184);
           border: 1px solid lightgray;
           border-radius: 30px;
 

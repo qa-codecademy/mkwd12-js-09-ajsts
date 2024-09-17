@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BASE_URL } from '../core.constants';
 import {
+  AddReviewReq,
   GetCommentsRes,
   GetReviewsRes,
   Review,
@@ -45,5 +46,19 @@ export class ReviewsApiService {
 
   postReviewComment(reviewId: number, text: string) {
     return this.http.post(`${BASE_URL}/comments`, { text, reviewId });
+  }
+
+  addLikeDislike(reviewId: number, type: 'LIKE' | 'DISLIKE') {
+    return this.http.post(`${BASE_URL}/reviews/${reviewId}/add-like-dislike`, {
+      type,
+    });
+  }
+
+  postReview(req: AddReviewReq) {
+    return this.http.post<Review>(`${BASE_URL}/reviews`, req);
+  }
+
+  patchReview(reviewId: number, req: Partial<AddReviewReq>) {
+    return this.http.patch(`${BASE_URL}/reviews/${reviewId}`, req);
   }
 }

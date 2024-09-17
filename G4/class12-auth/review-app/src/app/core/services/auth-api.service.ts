@@ -23,4 +23,22 @@ export class AuthApiService {
       observe: 'response',
     });
   }
+
+  logoutUser(refreshToken: string) {
+    return this.http.get(`${BASE_URL}/auth/logout`, {
+      headers: {
+        'refresh-token': refreshToken,
+      },
+    });
+  }
+
+  refreshAccessToken(refreshToken: string) {
+    return this.http.get(`${BASE_URL}/auth/refresh-token`, {
+      headers: {
+        'refresh-token': refreshToken,
+      },
+      //We observe the response here to get the new refresh and access token from the response headers
+      observe: 'response',
+    });
+  }
 }

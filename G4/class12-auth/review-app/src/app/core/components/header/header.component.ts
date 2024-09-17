@@ -15,6 +15,7 @@ export class HeaderComponent {
   userData = this.authService.userData;
 
   onLogout() {
-    this.authService.logoutUser();
+    this.authService.logoutFromServer();
+    this.authService.logoutFromClient();
   }
 }

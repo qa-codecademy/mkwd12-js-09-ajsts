@@ -5,6 +5,8 @@ import { RegisterComponent } from './feature/auth/components/register/register.c
 import { ReviewsListComponent } from './feature/reviews/components/reviews-list/reviews-list.component';
 import { authGuard } from './core/guards';
 import { ReviewDetailsComponent } from './feature/reviews/components/review-details/review-details.component';
+import { AddReviewComponent } from './feature/reviews/components/add-review/add-review.component';
+import { EditReviewComponent } from './feature/reviews/components/edit-review/edit-review.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +24,16 @@ export const routes: Routes = [
   {
     path: 'reviews',
     component: ReviewsListComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'add-review',
+    component: AddReviewComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'edit-review/:id',
+    component: EditReviewComponent,
     canActivate: [authGuard],
   },
   {

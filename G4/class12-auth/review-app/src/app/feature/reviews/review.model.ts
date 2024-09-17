@@ -34,3 +34,14 @@ export interface GetCommentsRes {
   comments: ReviewComment[];
   totalCount: number;
 }
+
+export interface AddReviewReq {
+  title: string;
+  poster: string;
+  director: string;
+  year: number;
+  genres: string;
+  author: string;
+  rating: number;
+  text: string;
+}
