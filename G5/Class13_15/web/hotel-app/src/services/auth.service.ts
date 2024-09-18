@@ -5,6 +5,9 @@ import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 import { AuthResponse } from '../types/auth-response.interface';
 import { Router } from '@angular/router';
 import { User } from '../types/user.interface';
+import { NotificationService } from './notification.service';
+import { getErrorData } from '../utils/api.helpers';
+import { LoggingService } from './logging.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +22,8 @@ export class AuthService {
   constructor(
     private readonly http: HttpClient,
     private readonly router: Router,
+    private readonly notificationService: NotificationService,
+    private readonly loggingService: LoggingService,
   ) {}
 
   register(email: string, password: string) {
@@ -29,10 +34,8 @@ export class AuthService {
 
     return this.http.post(`${this.authPath}/register`, requestBody).pipe(
       // will consume the error if happens, but must return an observable
-      catchError((error) => {
-        if (error) {
-          console.error(error);
-        }
+      catchError((errorResponse) => {
+        this.notificationService.showNotification(errorResponse.error.message);
 
         return of(null);
       }),
@@ -56,10 +59,24 @@ export class AuthService {
 
           this.isAuth.set(true);
         }),
-        switchMap(() => this.getMe()),
-        catchError((error) => {
-          if (error) {
-            console.error(error);
+        switchMap(() => {
+          this.notificationService.showNotification('Success login');
+          return this.getMe();
+        }),
+        catchError((errorResponse) => {
+          const { message, isClientError, isTechnicalError, status } =
+            getErrorData(errorResponse);
+
+          this.notificationService.showNotification(message);
+
+          if (isTechnicalError) {
+            // logging the error
+            this.loggingService.trackError({
+              errorCode: status,
+              errorMessage: message,
+              timestamp: Date.now(),
+              section: 'LOGGING_USER',
+            });
           }
 
           this.isAuth.set(false);
@@ -123,6 +140,7 @@ export class AuthService {
     this.removeToken('refresh');
     this.isAuth.set(false);
     this.router.navigate(['/login']);
+    this.notificationService.showNotification('Success logout');
   }
 
   private setToken(token: string, type: 'access' | 'refresh') {
