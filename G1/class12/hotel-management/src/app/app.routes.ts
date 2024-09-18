@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { UserRole } from '../types/user-role.enum';
 import { authGuard } from '../guards/auth.guard';
+import { RxjsComponent } from './rxjs/rxjs.component';
 
 export const routes: Routes = [
   { path: '', 
@@ -47,6 +48,7 @@ export const routes: Routes = [
   },
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
+  { path: 'rxjs', component: RxjsComponent},
   { path: 'not-found', component: NotFoundComponent },
   { path: 'not-allowed', component: NotAllowedComponent },
   { path: '**', redirectTo: 'not-found' },
