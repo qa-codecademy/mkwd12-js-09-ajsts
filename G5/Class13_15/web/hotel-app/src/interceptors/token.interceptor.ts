@@ -3,7 +3,18 @@ import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { catchError, switchMap, throwError } from 'rxjs';
 
+const WHITELISTED_URLS = ['http://localhost:3000/api/auth/login'];
+
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
+  console.log('Request url in interceptor', req.url);
+  const isUrlWhiteListed = WHITELISTED_URLS.includes(req.url);
+
+  // This costum logic, checks/prevents if the given URL is matching to modify the headers
+  if (isUrlWhiteListed) {
+    return next(req);
+  }
+
+  console.log('I AM HERE AFTER WHITELIST', req.url);
   const authService = inject(AuthService);
 
   const accessToken = authService.getToken('access');

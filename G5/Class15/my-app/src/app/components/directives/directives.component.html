@@ -1,0 +1,52 @@
+<!-- Directive 1 example ngIf -->
+<h1>Directives example:</h1>
+
+<div *ngIf="isLoggedIn()">
+  <p>Welcome, logged in user!</p>
+</div>
+
+<!-- Newer angular -->
+@if(isLoggedIn()){
+<p>Welcome, logged in user!</p>
+}
+
+<!-- Directive 2 example ngFor -->
+
+<ul>
+  <li *ngFor="let fruit of fruits()">
+    {{ fruit }}
+  </li>
+</ul>
+
+<!-- Newer angular -->
+<ul>
+  @for (fruit of fruits(); track $index) {
+  <li>{{ fruit }}</li>
+  }
+</ul>
+
+<hr />
+<!-- ATTRIBUTE DIRECTIVE -->
+@for (item of [1,2,3]; track $index) {
+<div
+  class="box"
+  appTextStyle
+  greetingMessage="Hello world"
+  [context]="item === 1 ? context : ''"
+>
+  {{ item }}
+</div>
+}
+<hr />
+<!-- STRUCTURE DIRECTIVE  -->
+<div *appRoleBased="['admin']">
+  <p>This content is only visible to admin</p>
+</div>
+
+<div *appRoleBased="['guest']">
+  <p>This content is only visible to guest</p>
+</div>
+
+<div *appRoleBased="['guest', 'admin']">
+  <p>This content is visible for both admin and guest</p>
+</div>
