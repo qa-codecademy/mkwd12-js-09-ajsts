@@ -1,0 +1,28 @@
+@import "../mixins";
+@import "../variables";
+
+.container {
+  background-color: $primary-color;
+  padding: 20px;
+  border-radius: 20px;
+
+  &__title {
+    color: $white-color;
+
+    // even more nesting
+  }
+
+  &__message {
+    color: $white-color;
+  }
+}
+
+.button__primary {
+  @include button-style(#4747f2, $white-color);
+
+  margin-right: 10px;
+}
+
+.button__secondary {
+  @include button-style(#bebef888, brown);
+}
